@@ -1,6 +1,5 @@
 call plug#begin(stdpath('data') . '/plugged')
 
-    Plug 'ayu-theme/ayu-vim'
     Plug 'preservim/nerdtree'
     Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
     Plug 'bfrg/vim-cpp-modern'
@@ -29,10 +28,6 @@ set hlsearch
 
 syntax on
 "filetype plugin indent on
-
-set termguicolors
-let ayucolor="dark"
-colorscheme ayu
 
 " Enable highlighting of C++11 attributes
 let g:cpp_attributes_highlight = 1
