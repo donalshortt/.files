@@ -1,5 +1,10 @@
-call plug#begin(stdpath('data') . '/plugged')
+set nocompatible
 
+call plug#begin(stdpath('data') . '/plugged')
+ 
+    Plug 'frazrepo/vim-rainbow'
+    Plug 'ghifarit53/tokyonight-vim'
+    Plug 'sheerun/vim-polyglot'
     Plug 'preservim/nerdtree'
     Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
     Plug 'bfrg/vim-cpp-modern'
@@ -104,6 +109,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+set termguicolors
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -123,9 +129,12 @@ set signcolumn=number
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 syntax on
-colo nord
+colo tokyonight
 
-let g:molokai_original = 1
+let g:rainbow_active = 1
+
+let g:tokyonight_style = 'night'
+let g:tokyonight_enable_italic = 1
 
 " Enable highlighting of C++11 attributes
 let g:cpp_attributes_highlight = 1
