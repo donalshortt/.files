@@ -129,12 +129,10 @@ set signcolumn=number
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 syntax on
-colo tokyonight
+colo nord
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 let g:rainbow_active = 1
-
-let g:tokyonight_style = 'night'
-let g:tokyonight_enable_italic = 1
 
 " Enable highlighting of C++11 attributes
 let g:cpp_attributes_highlight = 1
