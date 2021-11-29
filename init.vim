@@ -128,6 +128,7 @@ set signcolumn=number
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 set cursorline
+set clipboard+=unnamedplus
 
 syntax on
 colo nord
