@@ -15,6 +15,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    Plug 'itchyny/lightline.vim'
 
 call plug#end()
 
@@ -28,6 +29,8 @@ source ~/.files/nvim_config/coc.vim
 source ~/.files/nvim_config/nightfox.lua
 " Telescope config
 source ~/.files/nvim_config/telescope.vim
+" Lightline config
+source ~/.files/nvim_config/lightline.vim
 
 " set termguicolors
 set tabstop=4
@@ -49,7 +52,7 @@ set signcolumn=number
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 set cursorline
 set clipboard+=unnamedplus
-set statusline+=%F
+set noshowmode
 
 syntax on
 colo nightfox

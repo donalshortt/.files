@@ -106,3 +106,5 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 setopt extendedglob
+
+eval "$(zoxide init zsh)"
