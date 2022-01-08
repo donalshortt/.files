@@ -53,6 +53,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 set cursorline
 set clipboard+=unnamedplus
 set noshowmode
+set ft=asm
 
 syntax on
 colo nightfox
