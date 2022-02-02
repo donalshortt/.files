@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/donal/.oh-my-zsh"
 export PATH="$PATH:/home/donal/sysscripts"
+export PATH="$PATH:/home/donal/.local/share/gem/ruby/3.0.0/bin"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
