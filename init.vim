@@ -24,9 +24,6 @@ call plug#end()
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>0
 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
-cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
-
 " COC config
 source ~/.files/nvim_config/coc.vim
 " Nightfox config
