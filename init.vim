@@ -16,6 +16,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'itchyny/lightline.vim'
+    Plug 'lambdalisue/suda.vim'
 
 call plug#end()
 
@@ -24,7 +25,7 @@ inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>0
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee > /dev/null %
+cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 
 " COC config
 source ~/.files/nvim_config/coc.vim
