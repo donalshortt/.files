@@ -2,7 +2,5 @@ alias vi="nvim ${1}"
 alias cd="z ${1}"
 alias open="xdg-open ${1}"
 alias sd="shutdown -h 0"
+alias tunnel_gary="ssh -L 5901:127.0.0.1:5901 -C -N -l donal 192.168.178.34"
 
-alias minerva="192.168.178.34"
-alias jupiter="192.168.178.68"
-alias janus="192.167.178.34"
