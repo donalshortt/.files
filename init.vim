@@ -17,6 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'itchyny/lightline.vim'
     Plug 'lambdalisue/suda.vim'
+    Plug 'fladson/vim-kitty'
 
 call plug#end()
 
