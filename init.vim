@@ -57,7 +57,6 @@ set noshowmode
 set ft=asm
 
 syntax on
-colo nightfox
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 
 let g:rainbow_active = 1

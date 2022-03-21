@@ -19,7 +19,7 @@ xrdb ~/.Xresources &
 bspc monitor -d 1 2 3 4 5
 
 # Set wallpaper
-feh --bg-scale /home/donal/pictures/wallpapers/1.jpg /home/donal/pictures/wallpapers/2.jpg
+feh --bg-scale /home/donal/pictures/wallpapers/1.png 
 
 # Start picom if dead
 pgrep -x picom > /dev/null || picom --experimental-backends --backend glx -b &
@@ -29,12 +29,13 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Start polybar
 killall -q polybar
-polybar mybar
+polybar -q top -c /home/donal/.config/polybar/hack/config.ini &
+polybar -q bottom -c /home/donal/.config/polybar/hack/config.ini &
 
 # --- Monitors --- #
 #/home/donal/.config/bspwm/scritps/multimonitor.sh
 
-xrandr --dpi 144
+xrandr --output DP-2 --primary --mode 1920x1080 --rotate normal --output HDMI-2 --mode 1920x1080 --right-of DP-1 --rotate normal --output DP-2 --mode 1920x1080 --right-of HDMI-2 --rotate left
 
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true

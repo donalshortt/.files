@@ -1,27 +1,30 @@
-local nightfox = require('nightfox')
-
--- This function set the configuration of nightfox. If a value is not passed in the setup function
--- it will be taken from the default configuration above
-nightfox.setup({
-  fox = "nightfox", -- change the colorscheme to use nordfox
-  transparent = true,
-  styles = {
-    comments = "italic", -- change style of comments to be italic
-    keywords = "bold", -- change style of keywords to be bold
-    functions = "italic,bold" -- styles can be a comma separated list
-  },
-  inverse = {
-    match_paren = true, -- inverse the highlighting of match_parens
-  },
-  colors = {
-    red = "#FF000", -- Override the red color for MAX POWER
-    bg_alt = "#000000",
-  },
-  hlgroups = {
-    TSPunctDelimiter = { fg = "${red}" }, -- Override a highlight group with the color red
-    LspCodeLens = { bg = "#000000", style = "italic" },
+-- Default options
+require('nightfox').setup({
+  options = {
+    -- Compiled files destination location
+    compile_file_suffix = "_compiled", -- Compiled file suffix
+    transparent = true,    -- Disable setting background
+    terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*)
+    dim_inactive = false,   -- Non focused panes set to alternative background
+    styles = {              -- Style to be applied to different syntax groups
+      comments = "NONE",
+      functions = "NONE",
+      keywords = "NONE",
+      numbers = "NONE",
+      strings = "NONE",
+      types = "NONE",
+      variables = "NONE",
+    },
+    inverse = {             -- Inverse highlight for different types
+      match_paren = false,
+      visual = false,
+      search = false,
+    },
+    modules = {             -- List of various plugins and additional options
+      -- ...
+    },
   }
 })
 
--- Load the configuration set above and apply the colorscheme
-nightfox.load()
+-- setup must be called before loading
+vim.cmd("colorscheme nightfox")
