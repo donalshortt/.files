@@ -5,15 +5,11 @@ bspc rule -r "*"
 
 # due to pulseaudio being pulseaudio, this is required
 # maybe something to do with this: https://github.com/baskerville/bspwm/issues/165
-#pulseaudio --kill
-#pulseaudio --start
+# pulseaudio --kill
+# pulseaudio --start
 
 # --- Autostart --- #
 xrdb ~/.Xresources &
-
-# Rotate vertical monitor
-# xrandr --output DisplayPort-0 --rotate right
-# xrandr --output DisplayPort-1 --rotate left --right-of HDMI-A-1
 
 # Setup workspaces
 bspc monitor -d 1 2 3 4 5
@@ -28,18 +24,10 @@ pgrep -x picom > /dev/null || picom --experimental-backends --backend glx -b &
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Start polybar
-killall -q polybar
-polybar -q top -c /home/donal/.config/polybar/hack/config.ini &
-polybar -q bottom -c /home/donal/.config/polybar/hack/config.ini &
+/home/donal/sysscripts/launch_polybar.sh
 
-# --- Monitors --- #
-#/home/donal/.config/bspwm/scritps/multimonitor.sh
-
-xrandr --output DP-2 --primary --mode 1920x1080 --rotate normal --output HDMI-2 --mode 1920x1080 --right-of DP-1 --rotate normal --output DP-2 --mode 1920x1080 --right-of HDMI-2 --rotate left
-
-bspc config remove_disabled_monitors true
-bspc config remove_unplugged_monitors true
-bspc config merge_overlapping_monitors true
+# --- Monitors & Desktops --- #
+/home/donal/sysscripts/bspwm_monitors_and_desktops.sh
 
 # --- Workspaces --- #
 bspc config automatic_scheme alternate
