@@ -18,6 +18,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'itchyny/lightline.vim'
     Plug 'lambdalisue/suda.vim'
     Plug 'fladson/vim-kitty'
+    Plug 'shirk/vim-gas'
 
 call plug#end()
 
