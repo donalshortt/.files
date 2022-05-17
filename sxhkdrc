@@ -12,7 +12,7 @@ super + Return
 
 # program launcher
 super + space
-	launcher_colorful
+	rofi -show run
 
 super + s
     rofi -show ssh
