@@ -14,8 +14,13 @@ super + Return
 super + space
 	rofi -show run
 
+# ssh launcher
 super + s
     rofi -show ssh
+
+# lock screen 
+super + l
+    slock
 
 # make sxhkd reload its configuration files:
 super + r

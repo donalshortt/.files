@@ -18,7 +18,7 @@ bspc monitor -d 1 2 3 4 5
 feh --bg-scale /home/donal/pictures/wallpapers/1.png 
 
 # Start picom if dead
-pgrep -x picom > /dev/null || picom --experimental-backends --backend glx -b &
+pgrep -x picom > /dev/null || picom --experimental-backends -b -c &
 
 # Start sxhkd if dead
 pgrep -x sxhkd > /dev/null || sxhkd &
