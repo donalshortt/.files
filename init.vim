@@ -19,6 +19,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'lambdalisue/suda.vim'
     Plug 'fladson/vim-kitty'
     Plug 'shirk/vim-gas'
+    Plug 'calviken/vim-gdscript3'
 
 call plug#end()
 
@@ -28,6 +29,8 @@ inoremap <C-a> <C-o>0
 
 " COC config
 source ~/.files/nvim_config/coc.vim
+" Lsp installer config
+"source ~/.files/nvim_config/lsp_installer.lua
 " Nightfox config
 source ~/.files/nvim_config/nightfox.lua
 " Telescope config

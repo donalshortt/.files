@@ -11,11 +11,8 @@ bspc rule -r "*"
 # --- Autostart --- #
 xrdb ~/.Xresources &
 
-# Setup workspaces
-bspc monitor -d 1 2 3 4 5
-
 # Set wallpaper
-feh --bg-scale /home/donal/pictures/wallpapers/1.png 
+feh --bg-fill /home/donal/pictures/wallpapers/matthew.jpg --bg-scale /home/donal/pictures/wallpapers/nahil.jpg --bg-scale /home/donal/pictures/wallpapers/eugenia.jpg
 
 # Start picom if dead
 pgrep -x picom > /dev/null || picom --experimental-backends -b -c &
