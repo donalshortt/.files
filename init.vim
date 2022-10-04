@@ -41,7 +41,7 @@ source ~/.files/nvim_config/lightline.vim
 " set termguicolors
 set tabstop=4
 set shiftwidth=4
-set expandtab
+set noexpandtab
 set number
 set relativenumber
 set autoread
