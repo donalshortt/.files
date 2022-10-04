@@ -4,7 +4,7 @@ call plug#begin(stdpath('data') . '/plugged')
  
     Plug 'frazrepo/vim-rainbow'
     Plug 'sheerun/vim-polyglot'
-    Plug 'preservim/nerdtree'
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
     Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
     Plug 'bfrg/vim-cpp-modern'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
