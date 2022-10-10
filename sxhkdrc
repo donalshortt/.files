@@ -139,3 +139,18 @@ super + alt + shift + {Left,Down,Up,Right}
 super + a + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+#
+# volume control
+#
+
+# raise volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume 0 +5%
+
+# lower volume
+XF86AudioLowerVolume
+    pactl set-sink-volume 0 -5%
+
+# toggle mute
+XF86AudioMute
+    pactl set-sink-mute 0 toggle
