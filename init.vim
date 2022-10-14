@@ -70,3 +70,6 @@ let g:cpp_attributes_highlight = 1
 
 " Highlight struct/class member variables (affects both C and C++ files)
 let g:cpp_member_highlight = 1
+
+" let vim-godot find godot executable
+let g:godot_executable = '/usr/bin/godot-mono'
