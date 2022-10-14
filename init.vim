@@ -8,8 +8,6 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
     Plug 'bfrg/vim-cpp-modern'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'ryanoasis/vim-devicons'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -19,7 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'lambdalisue/suda.vim'
     Plug 'fladson/vim-kitty'
     Plug 'shirk/vim-gas'
-    Plug 'calviken/vim-gdscript3'
+    Plug 'habamax/vim-godot'
 
 call plug#end()
 
@@ -27,10 +25,11 @@ call plug#end()
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>0
 
+" CHADtree
+noremap <leader>v <cmd>CHADopen<cr>
+
 " COC config
 source ~/.files/nvim_config/coc.vim
-" Lsp installer config
-"source ~/.files/nvim_config/lsp_installer.lua
 " Nightfox config
 source ~/.files/nvim_config/nightfox.lua
 " Telescope config
@@ -72,8 +71,5 @@ let g:cpp_attributes_highlight = 1
 " Highlight struct/class member variables (affects both C and C++ files)
 let g:cpp_member_highlight = 1
 
-" open auto, start cursor in file, close if last window open
-au VimEnter NERD_tree_1 enew | execute 'NERDTree '.argv()[0] 
-" autocmd VimEnter * wincmd p
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
+" let vim-godot find godot executable
+let g:godot_executable = '/usr/bin/godot-mono'
