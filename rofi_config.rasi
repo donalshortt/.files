@@ -3,4 +3,5 @@ configuration {
   combi-modes: [ window, drun, run ];
 }
 
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+@theme "/home/donal/.local/share/rofi/themes/nord.rasi"
