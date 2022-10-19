@@ -18,8 +18,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'fladson/vim-kitty'
     Plug 'shirk/vim-gas'
     Plug 'habamax/vim-godot'
-	Plug 'nvim-lua/plenary.nvim'
-	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'clktmr/vim-gdscript3'
 
 call plug#end()
 

@@ -21,18 +21,6 @@
                 }
             }
         },
-        "csharp-ls": {
-            "command": "csharp-ls",
-            "filetypes": [
-                "cs"
-            ],
-            "rootPatterns": [
-                "*.csproj", 
-                ".vim/", 
-                ".git/", 
-                ".hg/"
-            ]
-        },
         "godot": {
             "host": "127.0.0.1",
             "filetypes": ["gd", "gdscript3"],
