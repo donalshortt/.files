@@ -19,6 +19,7 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'shirk/vim-gas'
     Plug 'habamax/vim-godot'
 	Plug 'clktmr/vim-gdscript3'
+	Plug 'kdheepak/lazygit.nvim'
 
 call plug#end()
 
@@ -37,6 +38,8 @@ source ~/.files/nvim_config/nightfox.lua
 source ~/.files/nvim_config/telescope.vim
 " Lightline config
 source ~/.files/nvim_config/lightline.vim
+" lazygit 
+source ~/.files/nvim_config/lazygit.vim
 
 " set termguicolors
 set tabstop=4
