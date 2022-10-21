@@ -1,0 +1,9 @@
+" jump to beginning/end of line
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>0
+
+" toggle chadtree
+noremap <leader>v <cmd>CHADopen<cr>
+
+" toggle lazygit
+nnoremap <silent> <leader>ll :LazyGit<CR>

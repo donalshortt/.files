@@ -20,28 +20,34 @@ call plug#begin(stdpath('data') . '/plugged')
     Plug 'habamax/vim-godot'
 	Plug 'clktmr/vim-gdscript3'
 	Plug 'kdheepak/lazygit.nvim'
+	Plug 's1n7ax/nvim-terminal'
 
 call plug#end()
 
-" jump to beginning/end of line while in insert
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>0
+" custom keybinds
+source ~/.files/nvim_config/keybinds.vim
 
-" CHADtree
-noremap <leader>v <cmd>CHADopen<cr>
-
-" COC config
+" coc 
 source ~/.files/nvim_config/coc.vim
-" Nightfox config
+" nightfox 
 source ~/.files/nvim_config/nightfox.lua
-" Telescope config
+" telescope 
 source ~/.files/nvim_config/telescope.vim
-" Lightline config
+" lightline 
 source ~/.files/nvim_config/lightline.vim
 " lazygit 
 source ~/.files/nvim_config/lazygit.vim
+" nvim-terminal
+source ~/.files/nvim_config/terminal.lua
+" chadtree
+source ~/.files/nvim_config/chadtree.vim
+" vim-godot
+source ~/.files/nvim_config/vim_godot.vim
+" cpp-modern
+source ~/.files/nvim_config/cpp_modern.vim
+" rainbow
+source ~/.files/nvim_config/rainbow.vim
 
-" set termguicolors
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
@@ -55,25 +61,11 @@ set nowritebackup
 set updatetime=300
 set shortmess+=c
 set signcolumn=number
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 set cursorline
 set clipboard+=unnamedplus
 set noshowmode
 set ft=asm
 
-syntax on
+" sets background to transparent
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-
-let g:rainbow_active = 1
-
-" Enable highlighting of C++11 attributes
-let g:cpp_attributes_highlight = 1
-
-" Highlight struct/class member variables (affects both C and C++ files)
-let g:cpp_member_highlight = 1
-
-" let vim-godot find godot executable
-let g:godot_executable = '/usr/bin/godot-mono'
