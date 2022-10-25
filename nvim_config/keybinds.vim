@@ -7,3 +7,6 @@ noremap <leader>v <cmd>CHADopen<cr>
 
 " toggle lazygit
 nnoremap <silent> <leader>ll :LazyGit<CR>
+
+" exit from terminal
+tnoremap <C-x> <C-\><C-n>
