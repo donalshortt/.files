@@ -1,3 +1,4 @@
+let g:coc_global_extensions = ['coc-json', 'coc-sh', 'coc-rust-analyzer', 'coc-tsserver', 'coc-python']
 
 " May need for vim (not neovim) since coc.nvim calculate byte offset by count
 " utf-8 byte sequence.
