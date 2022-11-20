@@ -2,22 +2,22 @@ set nocompatible
 
 call plug#begin(stdpath('data') . '/plugged')
  
-    Plug 'frazrepo/vim-rainbow'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-    Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
-    Plug 'bfrg/vim-cpp-modern'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'EdenEast/nightfox.nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'itchyny/lightline.vim'
-    Plug 'lambdalisue/suda.vim'
-    Plug 'fladson/vim-kitty'
-    Plug 'shirk/vim-gas'
-    Plug 'habamax/vim-godot'
+	Plug 'frazrepo/vim-rainbow'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+	Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
+	Plug 'bfrg/vim-cpp-modern'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'EdenEast/nightfox.nvim'
+	Plug 'kyazdani42/nvim-web-devicons'
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim'
+	Plug 'itchyny/lightline.vim'
+	Plug 'lambdalisue/suda.vim'
+	Plug 'fladson/vim-kitty'
+	Plug 'shirk/vim-gas'
+	Plug 'habamax/vim-godot'
 	Plug 'clktmr/vim-gdscript3'
 	Plug 'kdheepak/lazygit.nvim'
 	Plug 's1n7ax/nvim-terminal'
