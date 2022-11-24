@@ -21,6 +21,7 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'clktmr/vim-gdscript3'
 	Plug 'kdheepak/lazygit.nvim'
 	Plug 's1n7ax/nvim-terminal'
+	Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
