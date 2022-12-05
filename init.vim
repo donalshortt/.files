@@ -49,6 +49,7 @@ source ~/.files/nvim_config/cpp_modern.vim
 " rainbow
 source ~/.files/nvim_config/rainbow.vim
 
+
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
@@ -67,6 +68,7 @@ set cursorline
 set clipboard+=unnamedplus
 set noshowmode
 set ft=asm
+
 
 " sets background to transparent
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
