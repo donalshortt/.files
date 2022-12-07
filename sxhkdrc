@@ -14,6 +14,10 @@ super + Return
 super + space
 	rofi -show run
 
+# greenclip launcher
+super + c
+	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
 # ssh launcher
 #super + s
 #    rofi -show ssh

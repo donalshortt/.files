@@ -33,6 +33,9 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 # Start polybar
 /home/donal/sysscripts/launch_polybar.sh
 
+# Start greenclip
+greenclip daemon &
+
 # --- Monitors & Desktops --- #
 /home/donal/sysscripts/bspwm_monitors_and_desktops.sh
 
