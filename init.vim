@@ -23,6 +23,8 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 's1n7ax/nvim-terminal'
 	Plug 'wakatime/vim-wakatime'
 	Plug 'cohama/lexima.vim'
+	Plug 'chrisbra/unicode.vim'
+
 
 call plug#end()
 
