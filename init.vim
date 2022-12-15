@@ -24,6 +24,7 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'wakatime/vim-wakatime'
 	Plug 'cohama/lexima.vim'
 	Plug 'alvan/vim-closetag'
+	Plug 'chrisbra/unicode.vim'
 
 call plug#end()
 
