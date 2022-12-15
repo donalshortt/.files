@@ -23,6 +23,7 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 's1n7ax/nvim-terminal'
 	Plug 'wakatime/vim-wakatime'
 	Plug 'cohama/lexima.vim'
+	Plug 'alvan/vim-closetag'
 
 call plug#end()
 
@@ -49,6 +50,8 @@ source ~/.files/nvim_config/vim_godot.vim
 source ~/.files/nvim_config/cpp_modern.vim
 " rainbow
 source ~/.files/nvim_config/rainbow.vim
+" closetag
+source ~/.files/nvim_config/closetag.vim
 
 
 set tabstop=4
