@@ -2,10 +2,11 @@ let g:lightline = {
     \ 'colorscheme': 'ayu_dark',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+	\             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
 	\ },
 	\ 'component_function': {
-	\   'cocstatus': 'coc#status'
+	\   'cocstatus': 'coc#status',
+	\ 	'gitbranch': 'gitbranch#name'
 	\ },
 	\ }
 
