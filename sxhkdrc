@@ -15,8 +15,12 @@ super + space
 	rofi -show run
 
 # greenclip launcher
-super + c
+super + v
 	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# calculator launcher
+super + c
+	rofi -show calc -modi calc -no-show-match -no-sort
 
 # ssh launcher
 #super + s
