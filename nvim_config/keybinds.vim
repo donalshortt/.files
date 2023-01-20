@@ -12,5 +12,6 @@ nnoremap <silent> <leader>ll :LazyGit<CR>
 tnoremap <C-x> <C-\><C-n>
 
 " tab navigation 
-nnoremap <tab>     :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
+nnoremap <tab>     	:tabnext<CR>
+nnoremap <S-tab> 	:tabNext<CR>
+nnoremap <C-t>     	:tabnew<CR>
