@@ -4,7 +4,7 @@
 
 # take screenshot
 Print
-    maim -s | xclip -selection clipboard -t image/png
+    maim -o -s | xclip -selection clipboard -t image/png
 
 # terminal emulator
 super + Return
