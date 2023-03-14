@@ -30,6 +30,9 @@ super + c
 super + l
     slock
 
+super + b
+	blueman-applet && blueman-manager
+
 # make sxhkd reload its configuration files:
 super + r
 	pkill -USR1 -x sxhkd
