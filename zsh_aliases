@@ -1,4 +1,4 @@
-alias vi="nvim ${1}"
+alias v="nvim ${1}"
 alias cd="z ${1}"
 alias open="xdg-open ${1}"
 alias sd="shutdown -h 0"
