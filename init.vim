@@ -25,6 +25,7 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'alvan/vim-closetag'
 	Plug 'chrisbra/unicode.vim'
 	Plug 'itchyny/vim-gitbranch'
+	Plug 'stevearc/vim-arduino'
 
 call plug#end()
 
