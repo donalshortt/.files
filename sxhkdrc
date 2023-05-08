@@ -44,9 +44,13 @@ super + q
 # bspwm hotkeys
 #
 
-# quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+# quit bspwm
+super + alt + q
+	bspc quit
+
+# restart bspwm
+super + alt + r
+	pkill picom && bspc wm -r
 
 # close and kill
 super + {_,shift + }w
