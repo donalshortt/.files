@@ -18,9 +18,9 @@ local plugins = {
 	'nvim-lualine/lualine.nvim',
 	'nvim-treesitter/nvim-treesitter',
 	'nvim-lua/plenary.nvim',
-	{ 
-		'nvim-telescope/telescope.nvim', 
-		tag = '0.1.1' 
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.1'
 	},
 	'kdheepak/lazygit.nvim',
 	'lambdalisue/suda.vim',
