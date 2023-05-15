@@ -2,9 +2,6 @@
 vim.keymap.set('i', '<C-e>', '<C-o>$')
 vim.keymap.set('i', '<C-a>', '<C-o>0')
 
--- toggle lazygit
-vim.keymap.set('n', '<leader>ll', ':LazyGit<CR>')
-
 -- exit from terminal
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>')
 
