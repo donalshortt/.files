@@ -19,10 +19,7 @@ local plugins = {
 
 	'nvim-treesitter/nvim-treesitter',
 	'nvim-lua/plenary.nvim',
-	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.1'
-	},
+	'nvim-telescope/telescope.nvim',
 
 	'kdheepak/lazygit.nvim',
 	'lambdalisue/suda.vim',
@@ -33,7 +30,6 @@ local plugins = {
 	'L3MON4D3/LuaSnip',
 	'saadparwaiz1/cmp_luasnip',
 	'rafamadriz/friendly-snippets',
-
 	{
 		'williamboman/mason.nvim',
 		'williamboman/mason-lspconfig.nvim',
@@ -41,6 +37,8 @@ local plugins = {
 	},
 
 	'github/copilot.vim',
+
+	'cohama/lexima.vim',
 }
 
 local opts = {}
