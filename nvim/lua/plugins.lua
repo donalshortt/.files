@@ -16,14 +16,18 @@ local plugins = {
 	'nvim-tree/nvim-tree.lua',
 	'nvim-tree/nvim-web-devicons',
 	'nvim-lualine/lualine.nvim',
+
 	'nvim-treesitter/nvim-treesitter',
 	'nvim-lua/plenary.nvim',
 	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.1'
 	},
+
 	'kdheepak/lazygit.nvim',
 	'lambdalisue/suda.vim',
+
+	-- lsp stuff
 	'hrsh7th/nvim-cmp',
 	'hrsh7th/cmp-nvim-lsp',
 	'L3MON4D3/LuaSnip',
@@ -35,6 +39,8 @@ local plugins = {
 		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig'
 	},
+
+	'github/copilot.vim',
 }
 
 local opts = {}

@@ -1,7 +1,6 @@
 require("keymaps")
 require("plugins")
 require("options")
-require("qol")
 
 -- plugin configs
 require("plugins_config.nightfox")
