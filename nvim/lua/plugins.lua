@@ -1,42 +1,42 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-		vim.cmd [[packadd packer.nvim]]
-	return true
-		end
-	return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+local plugins = {
+	'EdenEast/nightfox.nvim',
+	'nvim-tree/nvim-tree.lua',
+	'nvim-tree/nvim-web-devicons',
+	'nvim-lualine/lualine.nvim',
+	'nvim-treesitter/nvim-treesitter',
+	'nvim-lua/plenary.nvim',
+	{ 
+		'nvim-telescope/telescope.nvim', 
+		tag = '0.1.1' 
+	},
+	'kdheepak/lazygit.nvim',
+	'lambdalisue/suda.vim',
+	'hrsh7th/nvim-cmp',
+	'hrsh7th/cmp-nvim-lsp',
+	'L3MON4D3/LuaSnip',
+	'saadparwaiz1/cmp_luasnip',
+	'rafamadriz/friendly-snippets',
 
-return require('packer').startup(function(use)
-	use 'wbthomason/packer.nvim'
-	use 'EdenEast/nightfox.nvim'
-	use 'nvim-tree/nvim-tree.lua'
-	use 'nvim-tree/nvim-web-devicons'
-	use 'nvim-lualine/lualine.nvim'
-	use 'nvim-treesitter/nvim-treesitter'
-	use 'nvim-lua/plenary.nvim'
-	use { 'nvim-telescope/telescope.nvim', tag = '0.1.1' }
-	use 'kdheepak/lazygit.nvim'
-	use 'lambdalisue/suda.vim'
-	use 'hrsh7th/nvim-cmp'
-	use 'hrsh7th/cmp-nvim-lsp'
-	use 'L3MON4D3/LuaSnip'
-	use 'saadparwaiz1/cmp_luasnip'
-	use 'rafamadriz/friendly-snippets'
-
-	use {
+	{
 		'williamboman/mason.nvim',
 		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig'
-	}
+	},
+}
 
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require('packer').sync()
-	end
-end)
+local opts = {}
+
+require("lazy").setup(plugins, opts)
