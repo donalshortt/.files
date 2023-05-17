@@ -17,7 +17,7 @@ case $HOSTNAME in
 		feh --bg-fill /home/donal/pictures/wallpapers/matthew.jpg --bg-scale /home/donal/pictures/wallpapers/nahil.jpg --bg-scale /home/donal/pictures/wallpapers/mossholder.jpg
 		;;
 	krustykrab)
-		feh --bg-fill /home/donal/pictures/wallpapers/1.jpg
+		feh --bg-fill /home/donal/pictures/wallpapers/solid-gray.jpg
 		;;
 	*)
 		echo "Hostname not found for wallpaper set"
