@@ -35,6 +35,7 @@ local plugins = {
 		'williamboman/mason-lspconfig.nvim',
 		'neovim/nvim-lspconfig'
 	},
+	'jose-elias-alvarez/null-ls.nvim',
 
 	'github/copilot.vim',
 
