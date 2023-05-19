@@ -12,20 +12,7 @@ bspc rule -r "*"
 xrdb ~/.Xresources &
 
 # Set wallpaper
-case $HOSTNAME in
-	squidward)
-		feh --bg-fill /home/donal/pictures/wallpapers/matthew.jpg --bg-scale /home/donal/pictures/wallpapers/nahil.jpg --bg-scale /home/donal/pictures/wallpapers/mossholder.jpg
-		;;
-	krustykrab)
-		feh --bg-fill /home/donal/pictures/wallpapers/solid-gray.jpg
-		;;
-	*)
-		echo "Hostname not found for wallpaper set"
-		;;
-esac
-
-# Start picom if dead
-# pgrep -x picom > /dev/null || picom --daemon --shadow &
+xsetroot -solid "#898f8b"
 
 # Start sxhkd if dead
 pgrep -x sxhkd > /dev/null || sxhkd &
