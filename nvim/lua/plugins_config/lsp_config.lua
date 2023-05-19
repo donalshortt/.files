@@ -1,19 +1,20 @@
 require('mason').setup()
 require('mason-lspconfig').setup {
-	ensure_installed = { 'rust_analyzer', 'clangd', 'lua_ls'}
+	ensure_installed = { 'rust_analyzer', 'clangd', 'lua_ls', 'bashls' }
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lspconfig = require('lspconfig')
 
-require('lspconfig').rust_analyzer.setup {
+lspconfig.rust_analyzer.setup {
 	capabilities = capabilities,
 }
 
-require('lspconfig').clangd.setup {
+lspconfig.clangd.setup {
 	capabilities = capabilities,
 }
 
-require('lspconfig').lua_ls.setup {
+lspconfig.lua_ls.setup {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -22,6 +23,10 @@ require('lspconfig').lua_ls.setup {
 			}
 		}
 	}
+}
+
+lspconfig.bashls.setup {
+	capabilities = capabilities,
 }
 
 vim.keymap.set('n', 'se', vim.diagnostic.open_float)
