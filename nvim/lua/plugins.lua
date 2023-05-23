@@ -21,6 +21,8 @@ local plugins = {
 	'nvim-lua/plenary.nvim',
 	'nvim-telescope/telescope.nvim',
 
+	's1n7ax/nvim-terminal',
+
 	'kdheepak/lazygit.nvim',
 	'lambdalisue/suda.vim',
 
@@ -39,6 +41,7 @@ local plugins = {
 
 	'github/copilot.vim',
 
+	-- autocloses things
 	'cohama/lexima.vim',
 }
 
