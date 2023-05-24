@@ -29,6 +29,9 @@ local plugins = {
 	-- find files
 	'nvim-telescope/telescope.nvim',
 
+	-- quickly accessible terminal
+	's1n7ax/nvim-terminal',
+
 	-- git ui
 	'kdheepak/lazygit.nvim',
 
@@ -55,8 +58,8 @@ local plugins = {
 	-- autocloses things
 	'cohama/lexima.vim',
 
-	-- lsp enchancer plugin; floating panes for goto definitions, code actions, etc.
-	{"glepnir/lspsaga.nvim", event = "LspAttach"}
+
+	"glepnir/lspsaga.nvim",
 }
 
 local opts = {}
