@@ -6,4 +6,4 @@ vim.opt.cursorline 		= true
 vim.opt.hlsearch 		= true
 vim.opt.termguicolors 	= true
 vim.opt.clipboard 		= 'unnamedplus'
-
+vim.opt.swapfile 		= false
