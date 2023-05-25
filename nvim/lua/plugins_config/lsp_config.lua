@@ -33,15 +33,3 @@ lspconfig.lua_ls.setup {
 lspconfig.bashls.setup {
 	capabilities = capabilities,
 }
-
-vim.keymap.set('n', 'se', vim.diagnostic.open_float)
-vim.keymap.set('n', 'ne', vim.diagnostic.goto_prev)
-vim.keymap.set('n', 'pe', vim.diagnostic.goto_next)
-
-vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-	end,
-})
