@@ -18,12 +18,16 @@ local plugins = {
 	-- filetree explorer
 	'nvim-tree/nvim-tree.lua',
 
+	-- icons for various plugins
 	'nvim-tree/nvim-web-devicons',
 
 	-- pretty bottom statusline
 	'nvim-lualine/lualine.nvim',
 
+	-- makes ASTs for source files
 	'nvim-treesitter/nvim-treesitter',
+
+	-- some sort of utility lib for nvim
 	'nvim-lua/plenary.nvim',
 
 	-- find files
@@ -48,7 +52,7 @@ local plugins = {
 		},
 
 		-- handles linters and formatters
-			'jose-elias-alvarez/null-ls.nvim',
+		'jose-elias-alvarez/null-ls.nvim',
 
 	'github/copilot.vim',
 
