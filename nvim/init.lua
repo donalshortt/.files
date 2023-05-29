@@ -5,6 +5,7 @@ require("options")
 -- plugin configs
 require("plugins_config.nightfox")
 require("plugins_config.lualine")
+require("plugins_config.barbar")
 require("plugins_config.nvim-tree")
 require("plugins_config.telescope")
 require("plugins_config.treesitter")

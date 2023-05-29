@@ -24,6 +24,9 @@ local plugins = {
 	-- pretty bottom statusline
 	'nvim-lualine/lualine.nvim',
 
+	-- pretty tabs
+	'romgrk/barbar.nvim',
+
 	-- makes ASTs for source files
 	'nvim-treesitter/nvim-treesitter',
 
