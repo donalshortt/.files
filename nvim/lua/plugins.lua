@@ -63,7 +63,10 @@ local plugins = {
 	'cohama/lexima.vim',
 
 	-- lsp enchancer plugin; floating panes for goto definitions, code actions, etc.
-	{"glepnir/lspsaga.nvim", event = "LspAttach"}
+	{"glepnir/lspsaga.nvim", event = "LspAttach"},
+
+	-- helper for shortcuts
+	'liuchengxu/vim-which-key',
 }
 
 local opts = {}
