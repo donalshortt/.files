@@ -45,10 +45,6 @@ keymap({"n", "t"}, "<leader>;", "<cmd>Lspsaga term_toggle<CR>")
 keymap('t', '<C-x>', '<C-\\><C-n>')
 
 
--- WHICH KEY
-keymap('n', '<leader>', ':WhichKey \'<leader>\'<CR>')
-
-
 -- TELESCOPE
 keymap('n', '<leader>ff', ':Telescope find_files<CR>')
 keymap('n', '<leader>fg', ':Telescope live_grep<CR>')
@@ -60,7 +56,6 @@ keymap('n', '<leader>fc', ':Telescope command_history<CR>')
 keymap('n', '<TAB>',   ':BufferNext<CR>')
 keymap('n', '<S-TAB>', ':BufferPrevious<CR>')
 keymap('n', '<C-t>',   ':tabnew<CR>')
-keymap('n', '<C-w>',   ':BufferClose<CR>')
 
 
 -- NVIM TREE

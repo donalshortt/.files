@@ -22,7 +22,7 @@ local plugins = {
 	'nvim-tree/nvim-web-devicons',
 
 	-- pretty bottom statusline
-	'nvim-lualine/lualine.nvim',
+	'freddiehaddad/feline.nvim',
 
 	-- pretty tabs
 	'romgrk/barbar.nvim',
@@ -65,8 +65,8 @@ local plugins = {
 	-- lsp enchancer plugin; floating panes for goto definitions, code actions, etc.
 	{"glepnir/lspsaga.nvim", event = "LspAttach"},
 
-	-- helper for shortcuts
-	'liuchengxu/vim-which-key',
+	-- 
+	{'lewis6991/gitsigns.nvim'},
 }
 
 local opts = {}
