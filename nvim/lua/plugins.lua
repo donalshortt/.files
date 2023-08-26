@@ -57,7 +57,8 @@ local plugins = {
 		-- handles linters and formatters
 		'jose-elias-alvarez/null-ls.nvim',
 
-	'github/copilot.vim',
+	'zbirenbaum/copilot.lua',
+	'zbirenbaum/copilot-cmp',
 
 	-- autocloses things
 	'cohama/lexima.vim',
