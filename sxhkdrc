@@ -26,6 +26,10 @@ super + c
 #super + s
 #    rofi -show ssh
 
+# nman launcher
+super + n
+	nman
+
 # lock screen 
 super + l
     slock
