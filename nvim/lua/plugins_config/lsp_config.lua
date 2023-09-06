@@ -37,3 +37,7 @@ lspconfig.lua_ls.setup {
 lspconfig.bashls.setup {
 	capabilities = capabilities,
 }
+
+lspconfig.pyright.setup {
+	capabilties = capabilities,
+}
