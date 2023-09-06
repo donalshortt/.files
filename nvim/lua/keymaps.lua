@@ -44,6 +44,8 @@ keymap({"n", "t"}, "<leader>;", "<cmd>Lspsaga term_toggle<CR>")
 -- exit from terminal
 keymap('t', '<C-x>', '<C-\\><C-n>')
 
+-- code actions
+keymap('n', '<leader>a', '<cmd>Lspsaga code_action<CR>')
 
 -- TELESCOPE
 keymap('n', '<leader>ff', ':Telescope find_files<CR>')
