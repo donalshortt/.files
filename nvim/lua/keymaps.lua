@@ -7,6 +7,10 @@ local keymap = vim.keymap.set
 keymap('i', '<C-e>', '<C-o>$')
 keymap('i', '<C-a>', '<C-o>0')
 
+keymap('n', '<C-Down>','<C-e>')
+keymap('n', '<C-Up>', '<C-y>')
+keymap('i', '<C-Down>','<C-e>')
+keymap('i', '<C-Up>', '<C-y>')
 
 -- LSP SAGA
 
