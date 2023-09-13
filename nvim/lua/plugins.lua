@@ -66,8 +66,11 @@ local plugins = {
 	-- lsp enchancer plugin; floating panes for goto definitions, code actions, etc.
 	{"glepnir/lspsaga.nvim", event = "LspAttach"},
 
-	-- 
+	-- shows where edits were made according to git
 	{'lewis6991/gitsigns.nvim'},
+
+	-- mini library
+	{ 'echasnovski/mini.nvim', version = '*' },
 }
 
 local opts = {}
