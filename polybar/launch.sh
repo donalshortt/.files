@@ -7,4 +7,8 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch Polybar
-polybar top -c ~/.config/polybar/config.ini &
+# polybar top -c ~/.config/polybar/config.ini &
+
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    MONITOR=$m polybar top -c /home/donal/.config/polybar/config.ini &
+done
