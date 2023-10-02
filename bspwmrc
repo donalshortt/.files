@@ -33,8 +33,6 @@ bspc config active_border_color         "#073642"
 #
 # Autostart
 #
-# Set display from arandr saved script
-sh ~/.screenlayout/uni.sh &
 # Bar
 # ~/.config/polybar/launch.sh &
 sh ~/sysscripts/launch_polybar.sh &
