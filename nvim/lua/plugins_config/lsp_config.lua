@@ -41,3 +41,7 @@ lspconfig.bashls.setup {
 lspconfig.pyright.setup {
 	capabilties = capabilities,
 }
+
+lspconfig.tsserver.setup {
+	capabilties = capabilities,
+}
