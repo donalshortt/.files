@@ -1,0 +1,4 @@
+set relativenumber
+
+imap <C-e> <C-o>$
+imap <C-a> <C-o>0
