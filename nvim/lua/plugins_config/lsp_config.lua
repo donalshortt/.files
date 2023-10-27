@@ -45,3 +45,7 @@ lspconfig.pyright.setup {
 lspconfig.tsserver.setup {
 	capabilties = capabilities,
 }
+
+lspconfig.volar.setup {
+	capabilties = capabilities,
+}
