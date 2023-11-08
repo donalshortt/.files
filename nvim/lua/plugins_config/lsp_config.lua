@@ -5,6 +5,9 @@ require('mason-lspconfig').setup {
 		'clangd',
 		'lua_ls',
 		'bashls',
+		'pyright',
+		'tsserver',
+		'volar'
 	}
 }
 
