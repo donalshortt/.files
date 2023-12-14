@@ -117,3 +117,4 @@ setopt extendedglob
 eval "$(zoxide init zsh)"
 
 source /home/donal/.config/broot/launcher/bash/br
+source /usr/share/nvm/init-nvm.sh
