@@ -43,19 +43,19 @@ local plugins = {
 	'lambdalisue/suda.vim',
 
 	-- lsp stuff
-		'hrsh7th/nvim-cmp',
-		'hrsh7th/cmp-nvim-lsp',
-		'L3MON4D3/LuaSnip',
-		'saadparwaiz1/cmp_luasnip',
-		'rafamadriz/friendly-snippets',
-		{
-			'williamboman/mason.nvim',
-			'williamboman/mason-lspconfig.nvim',
-			'neovim/nvim-lspconfig'
-		},
+	'hrsh7th/nvim-cmp',
+	'hrsh7th/cmp-nvim-lsp',
+	'L3MON4D3/LuaSnip',
+	'saadparwaiz1/cmp_luasnip',
+	'rafamadriz/friendly-snippets',
+	{
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim',
+		'neovim/nvim-lspconfig'
+	},
 
-		-- handles linters and formatters
-		'jose-elias-alvarez/null-ls.nvim',
+	-- handles linters and formatters
+	'jose-elias-alvarez/null-ls.nvim',
 
 	'zbirenbaum/copilot.lua',
 	'zbirenbaum/copilot-cmp',
