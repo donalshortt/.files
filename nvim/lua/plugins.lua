@@ -72,6 +72,9 @@ local plugins = {
 
 	-- mini library
 	{ 'echasnovski/mini.nvim', version = '*' },
+
+	-- nice todos
+	{ 'folke/todo-comments.nvim' },
 }
 
 local opts = {}
