@@ -68,10 +68,21 @@ local plugins = {
 	{"glepnir/lspsaga.nvim", event = "LspAttach"},
 
 	-- shows where edits were made according to git
-	{'lewis6991/gitsigns.nvim'},
+	'lewis6991/gitsigns.nvim',
 
 	-- nice todos
-	{ 'folke/todo-comments.nvim' },
+	'folke/todo-comments.nvim',
+
+	-- markdown previewer
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
 }
 
 local opts = {}
