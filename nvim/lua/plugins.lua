@@ -70,9 +70,6 @@ local plugins = {
 	-- shows where edits were made according to git
 	{'lewis6991/gitsigns.nvim'},
 
-	-- mini library
-	{ 'echasnovski/mini.nvim', version = '*' },
-
 	-- nice todos
 	{ 'folke/todo-comments.nvim' },
 }

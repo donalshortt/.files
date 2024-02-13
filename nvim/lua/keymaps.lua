@@ -70,9 +70,5 @@ keymap('n', '<leader>v', ':NvimTreeToggle<CR>')
 keymap('n', '<leader>ll', ':LazyGit<CR>')
 
 
--- MINIMAP
-keymap('n', '<leader>m', ':lua MiniMap.toggle()<CR>')
-
-
 -- TODO COMMENTS
 keymap('n', '<leader>fd', ':TodoTelescope<CR>')
