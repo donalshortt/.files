@@ -16,7 +16,7 @@ keymap('n', '<C-Up>', '<C-y>')
 keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 
 -- shows references, implementation & definition
-keymap("n", "gf", "<cmd>Lspsaga lsp_finder<CR>")
+keymap("n", "gf", "<cmd>Lspsaga finder<CR>")
 
 -- go to definition
 keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
