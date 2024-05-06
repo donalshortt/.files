@@ -7,6 +7,7 @@ require('mason-lspconfig').setup {
 		'bashls',
 		'pyright',
 		'tsserver',
+		'eslint',
 		'volar'
 	}
 }
@@ -46,6 +47,10 @@ lspconfig.pyright.setup {
 }
 
 lspconfig.tsserver.setup {
+	capabilties = capabilities,
+}
+
+lspconfig.eslint.setup {
 	capabilties = capabilities,
 }
 
