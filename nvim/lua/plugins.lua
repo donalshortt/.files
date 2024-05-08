@@ -73,6 +73,12 @@ local plugins = {
 	-- nice todos
 	'folke/todo-comments.nvim',
 
+	-- trouble
+	{
+		'folke/trouble.nvim',
+		opts = {},
+	},
+
 	-- markdown previewer
 	{
 		"iamcco/markdown-preview.nvim",
@@ -83,6 +89,8 @@ local plugins = {
 		end,
 		ft = { "markdown" },
 	},
+
+
 }
 
 local opts = {}

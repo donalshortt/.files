@@ -1,6 +1,5 @@
 local keymap = vim.keymap.set
 
-
 -- BASIC
 
 -- jump to end/beginning of line
@@ -72,3 +71,9 @@ keymap('n', '<leader>ll', ':LazyGit<CR>')
 
 -- TODO COMMENTS
 keymap('n', '<leader>fd', ':TodoTelescope<CR>')
+
+
+-- TROUBLE
+keymap('n', '<leader>xx', function() require("trouble").toggle() end)
+keymap('n', '<leader>xd', ':Trouble document_diagnostics<CR>')
+keymap('n', '<leader>xw', ':Trouble workspace_diagnostics<CR>')
