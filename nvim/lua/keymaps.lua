@@ -74,6 +74,6 @@ keymap('n', '<leader>fd', ':TodoTelescope<CR>')
 
 
 -- TROUBLE
-keymap('n', '<leader>xx', function() require("trouble").toggle() end)
+keymap('n', '<leader>xx', ':TroubleToggle<CR>')
 keymap('n', '<leader>xd', ':Trouble document_diagnostics<CR>')
 keymap('n', '<leader>xw', ':Trouble workspace_diagnostics<CR>')
