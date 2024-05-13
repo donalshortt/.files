@@ -1,10 +1,5 @@
 local keymap = vim.keymap.set
 
-keymap('n', '<Up>',    '<Nop>')
-keymap('n', '<Down>',    '<Nop>')
-keymap('n', '<Left>',    '<Nop>')
-keymap('n', '<Right>',    '<Nop>')
-
 -- BASIC
 
 -- jump to end/beginning of line
