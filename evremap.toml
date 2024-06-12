@@ -13,5 +13,5 @@ device_name = "Keychron Keychron K1"
 # Both `tap` and `hold` can expand to multiple output keys.
 [[dual_role]]
 input = "KEY_CAPSLOCK"
-hold = ["KEY_LEFTCTRL"]
+hold = ["KEY_LEFTMETA"]
 tap = ["KEY_ESC"]
