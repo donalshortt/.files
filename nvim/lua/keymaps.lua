@@ -5,8 +5,6 @@ keymap('n', '<Down>',    '<Nop>')
 keymap('n', '<Left>',    '<Nop>')
 keymap('n', '<Right>',    '<Nop>')
 
--- BASIC
-
 -- LSP SAGA
 
 -- rename all occurrences of the hovered word for the entire file
