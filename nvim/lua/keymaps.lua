@@ -7,13 +7,6 @@ keymap('n', '<Right>',    '<Nop>')
 
 -- BASIC
 
--- jump to end/beginning of line
-keymap('i', '<C-e>', '<C-o>$')
-keymap('i', '<C-a>', '<C-o>0')
-
-keymap('n', '<C-Down>','<C-e>')
-keymap('n', '<C-Up>', '<C-y>')
-
 -- LSP SAGA
 
 -- rename all occurrences of the hovered word for the entire file
