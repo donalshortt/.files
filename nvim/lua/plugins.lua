@@ -80,8 +80,6 @@ local plugins = {
 		end,
 		ft = { "markdown" },
 	},
-
-
 }
 
 local opts = {}
