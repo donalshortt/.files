@@ -67,9 +67,3 @@ keymap('n', '<leader>ll', ':LazyGit<CR>')
 
 -- TODO COMMENTS
 keymap('n', '<leader>fd', ':TodoTelescope<CR>')
-
-
--- TROUBLE
-keymap('n', '<leader>xx', ':TroubleToggle<CR>')
-keymap('n', '<leader>xd', ':Trouble document_diagnostics<CR>')
-keymap('n', '<leader>xw', ':Trouble workspace_diagnostics<CR>')
