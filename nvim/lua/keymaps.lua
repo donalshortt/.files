@@ -7,6 +7,8 @@ keymap('n', '<Right>',    '<Nop>')
 
 -- BASIC
 
+keymap('t', '<Esc>', '<C-\\><C-n>')
+
 -- jump to end/beginning of line
 keymap('i', '<C-e>', '<C-o>$')
 keymap('i', '<C-a>', '<C-o>0')

@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Check if there's a pending Neovim restart from a previous session
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:/home/donal/sysscripts"
@@ -117,7 +119,16 @@ eval "$(starship init zsh)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-source /home/donal/.config/broot/launcher/bash/br
+#source /home/donal/.config/broot/launcher/bash/br
 source /usr/share/nvm/init-nvm.sh
 
-
+function vv() {
+    # Check if running inside a Neovim terminal
+    if [ -n "$NVIM" ]; then
+        # Use nvr to open the file in the current Neovim session
+        nvr "$@"
+    else
+        # If not in a Neovim terminal, just open nvim with the arguments
+        command nvim "$@"
+    fi
+}
