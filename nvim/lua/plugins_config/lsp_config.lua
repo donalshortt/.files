@@ -43,17 +43,17 @@ lspconfig.bashls.setup {
 }
 
 lspconfig.pyright.setup {
-	capabilties = capabilities,
+	capabilities = capabilities,
 }
 
 lspconfig.tsserver.setup {
-	capabilties = capabilities,
+	capabilities = capabilities,
 }
 
 lspconfig.eslint.setup {
-	capabilties = capabilities,
+	capabilities = capabilities,
 }
 
 lspconfig.volar.setup {
-	capabilties = capabilities,
+	capabilities = capabilities,
 }

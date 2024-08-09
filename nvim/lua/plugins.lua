@@ -70,12 +70,6 @@ local plugins = {
 	-- shows where edits were made according to git
 	'lewis6991/gitsigns.nvim',
 
-	-- trouble
-	{
-		'folke/trouble.nvim',
-		opts = {},
-	},
-
 	-- markdown previewer
 	{
 		"iamcco/markdown-preview.nvim",
@@ -86,8 +80,6 @@ local plugins = {
 		end,
 		ft = { "markdown" },
 	},
-
-
 }
 
 local opts = {}
