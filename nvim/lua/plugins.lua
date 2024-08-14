@@ -15,9 +15,6 @@ local plugins = {
 	-- theme
 	'EdenEast/nightfox.nvim',
 
-	-- filetree explorer
-	'nvim-tree/nvim-tree.lua',
-
 	-- icons for various plugins
 	'nvim-tree/nvim-web-devicons',
 
