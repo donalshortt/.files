@@ -121,14 +121,3 @@ eval "$(pyenv virtualenv-init -)"
 
 #source /home/donal/.config/broot/launcher/bash/br
 source /usr/share/nvm/init-nvm.sh
-
-function vv() {
-    # Check if running inside a Neovim terminal
-    if [ -n "$NVIM" ]; then
-        # Use nvr to open the file in the current Neovim session
-        nvr "$@"
-    else
-        # If not in a Neovim terminal, just open nvim with the arguments
-        command nvim "$@"
-    fi
-}

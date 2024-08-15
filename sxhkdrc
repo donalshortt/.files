@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty -e nvim -c ':terminal' -c 'startinsert'
+	kitty 
 
 # greenclip launcher
 super + v
