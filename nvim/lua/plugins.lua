@@ -77,6 +77,9 @@ local plugins = {
 		end,
 		ft = { "markdown" },
 	},
+
+	-- surround things!
+	'tpope/vim-surround',
 }
 
 local opts = {}
