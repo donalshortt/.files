@@ -78,3 +78,7 @@ keymap('n', '<leader>ll', ':LazyGit<CR>')
 
 -- TODO COMMENTS
 keymap('n', '<leader>fd', ':TodoTelescope<CR>')
+
+
+-- LEETCODE
+keymap('n', '<leader>lc', ':Leet console<CR>')

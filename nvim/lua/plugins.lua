@@ -80,6 +80,15 @@ local plugins = {
 
 	-- surround things!
 	'tpope/vim-surround',
+
+	-- ui components library
+	'MunifTanjim/nui.nvim',
+
+	-- notification manager
+	"rcarriga/nvim-notify",
+
+	-- leetcode
+	"kawre/leetcode.nvim",
 }
 
 local opts = {}
