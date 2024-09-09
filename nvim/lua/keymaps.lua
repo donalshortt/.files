@@ -82,3 +82,7 @@ keymap('n', '<leader>fd', ':TodoTelescope<CR>')
 
 -- LEETCODE
 keymap('n', '<leader>lc', ':Leet console<CR>')
+
+
+-- CARGO RUN
+keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run"<CR>')

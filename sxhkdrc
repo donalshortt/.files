@@ -53,7 +53,7 @@ super + alt + q
 
 # restart bspwm
 super + alt + r
-	pkill picom && bspc wm -r
+	bspc wm -r
 
 # close and kill
 super + {_,shift + }w
