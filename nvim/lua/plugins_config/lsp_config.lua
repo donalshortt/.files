@@ -6,7 +6,7 @@ require('mason-lspconfig').setup {
 		'lua_ls',
 		'bashls',
 		'pyright',
-		'tsserver',
+		'ts_ls',
 		'eslint',
 		'volar'
 	}
@@ -46,7 +46,7 @@ lspconfig.pyright.setup {
 	capabilities = capabilities,
 }
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
 	capabilities = capabilities,
 }
 
@@ -55,5 +55,9 @@ lspconfig.eslint.setup {
 }
 
 lspconfig.volar.setup {
+	capabilities = capabilities,
+}
+
+lspconfig.julials.setup {
 	capabilities = capabilities,
 }
