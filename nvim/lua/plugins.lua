@@ -81,6 +81,9 @@ local plugins = {
 	-- surround things!
 	'tpope/vim-surround',
 
+	-- comment things!
+	'tpope/vim-commentary',
+
 	-- ui components library
 	'MunifTanjim/nui.nvim',
 
