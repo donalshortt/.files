@@ -92,6 +92,9 @@ local plugins = {
 
 	-- leetcode
 	"kawre/leetcode.nvim",
+
+	-- git plugin 
+	'tpope/vim-fugitive',
 }
 
 local opts = {}
