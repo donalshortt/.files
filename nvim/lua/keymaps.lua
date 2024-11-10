@@ -85,4 +85,4 @@ keymap('n', '<leader>lc', ':Leet console<CR>')
 
 
 -- CARGO RUN
-keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run"<CR>')
+keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run" &<CR>')
