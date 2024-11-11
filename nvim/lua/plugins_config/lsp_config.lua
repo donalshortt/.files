@@ -17,6 +17,15 @@ local lspconfig = require('lspconfig')
 
 lspconfig.rust_analyzer.setup {
 	capabilities = capabilities,
+	settings = {
+		["rust_analyzer"] = {
+			server = {
+				extraEnv = {
+					RA_TIMEOUTS = "300000"
+				}
+			}
+		}
+	}
 }
 
 lspconfig.clangd.setup {
