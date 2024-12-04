@@ -95,6 +95,13 @@ local plugins = {
 
 	-- git plugin 
 	'tpope/vim-fugitive',
+
+	-- rustacean (extra rust features)
+	{
+		'mrcjkb/rustaceanvim',
+		version = '^5', -- Recommended
+		lazy = false, -- This plugin is already lazy
+	}
 }
 
 local opts = {}

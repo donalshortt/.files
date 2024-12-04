@@ -10,6 +10,7 @@ export PATH="$PATH:/home/donal/.local/share/gem/ruby/3.0.0/bin"
 export PATH="$PATH:/home/donal/.local/bin"
 export PATH="$PATH:/home/donal/.cargo/bin"
 export PATH="$PATH:/home/donal/.pyenv/bin"
+export PATH="$PATH:/home/donal/go/bin"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
