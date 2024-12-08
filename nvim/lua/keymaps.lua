@@ -55,6 +55,7 @@ keymap('t', '<C-x>', '<C-\\><C-n>')
 -- code actions
 keymap('n', '<leader>a', '<cmd>Lspsaga code_action<CR>')
 
+
 -- TELESCOPE
 keymap('n', '<leader>ff', ':Telescope find_files<CR>')
 keymap('n', '<leader>fg', ':Telescope live_grep<CR>')
@@ -89,5 +90,5 @@ keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run" &<CR>')
 
 
 -- DEBUGGER
-keymap('n', '<leader>db', ':DapToggleBreakpoint<CR>')
+keymap('n', '<leader>ds', ':DapToggleBreakpoint<CR>')
 keymap('n', '<leader>dd', ':DapContinue<CR>')

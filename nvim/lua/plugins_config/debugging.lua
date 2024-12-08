@@ -69,7 +69,29 @@ dap.configurations.rust = {
   },
 }
 
-require("dapui").setup()
+local opts = {
+	layouts = {
+		{
+			elements = {
+				{ id = "scopes", size = 0.25 },
+				{ id = "stacks", size = 0.25 },
+				{ id = "breakpoints", size = 0.20 },
+				{ id = "watches", size = 0.30 },
+			},
+			position = "left",
+			size = 35,
+		},
+		{
+			elements = {
+				{ id = "repl", size = 1 },
+			},
+			position = "bottom",
+			size = 15,
+		},
+	},
+}
+require("dapui").setup(opts)
+
 local dapui = require("dapui")
 
 dap.listeners.before.attach.dapui_config = function()
