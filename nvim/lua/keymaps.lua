@@ -86,3 +86,8 @@ keymap('n', '<leader>lc', ':Leet console<CR>')
 
 -- CARGO RUN
 keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run" &<CR>')
+
+
+-- DEBUGGER
+keymap('n', '<leader>db', ':DapToggleBreakpoint<CR>')
+keymap('n', '<leader>dd', ':DapContinue<CR>')

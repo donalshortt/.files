@@ -101,7 +101,13 @@ local plugins = {
 		'mrcjkb/rustaceanvim',
 		version = '^5', -- Recommended
 		lazy = false, -- This plugin is already lazy
-	}
+	},
+
+	-- debugger
+	'mfussenegger/nvim-dap',
+	'rcarriga/nvim-dap-ui',
+	'nvim-neotest/nvim-nio',
+	'folke/lazydev.nvim'
 }
 
 local opts = {}
