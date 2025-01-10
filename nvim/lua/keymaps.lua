@@ -1,5 +1,8 @@
 local keymap = vim.keymap.set
 
+vim.g.mapleader = ','
+
+-- remove arrow keys to remove habit
 keymap('n', '<Up>',    '<Nop>')
 keymap('n', '<Down>',    '<Nop>')
 keymap('n', '<Left>',    '<Nop>')
@@ -7,14 +10,19 @@ keymap('n', '<Right>',    '<Nop>')
 
 -- BASIC
 
-keymap('t', '<Esc>', '<C-\\><C-n>')
-
 -- jump to end/beginning of line
 keymap('i', '<C-e>', '<C-o>$')
 keymap('i', '<C-a>', '<C-o>0')
 
 keymap('n', '<C-Down>','<C-e>')
 keymap('n', '<C-Up>', '<C-y>')
+
+-- window navigation
+keymap('n', '<C-h>', '<C-w>h')
+keymap('n', '<C-j>', '<C-w>j')
+keymap('n', '<C-k>', '<C-w>k')
+keymap('n', '<C-l>', '<C-w>l')
+
 
 -- LSP SAGA
 
@@ -58,9 +66,9 @@ keymap('n', '<leader>a', '<cmd>Lspsaga code_action<CR>')
 
 -- TELESCOPE
 keymap('n', '<leader>ff', ':Telescope find_files<CR>')
-keymap('n', '<leader>fg', ':Telescope live_grep<CR>')
+keymap('n', '<leader>fd', ':Telescope live_grep<CR>')
 keymap('n', '<leader>fs', ':Telescope grep_string<CR>')
-keymap('n', '<leader>fc', ':Telescope command_history<CR>')
+keymap('n', '<leader>fa', ':Telescope command_history<CR>')
 
 
 -- BARBAR
@@ -75,10 +83,6 @@ keymap('n', '<leader>v', ':NvimTreeToggle<CR>')
 
 -- LAZYGIT 
 keymap('n', '<leader>ll', ':LazyGit<CR>')
-
-
--- TODO COMMENTS
-keymap('n', '<leader>fd', ':TodoTelescope<CR>')
 
 
 -- LEETCODE
