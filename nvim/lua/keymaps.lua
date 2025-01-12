@@ -23,6 +23,10 @@ keymap('n', '<C-j>', '<C-w>j')
 keymap('n', '<C-k>', '<C-w>k')
 keymap('n', '<C-l>', '<C-w>l')
 
+-- horitzontal scrolling
+keymap('n', '<C-M-h>', 'zh')
+keymap('n', '<C-M-l>', 'zl')
+
 
 -- LSP SAGA
 
@@ -94,5 +98,6 @@ keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run" &<CR>')
 
 
 -- DEBUGGER
-keymap('n', '<leader>ds', ':DapToggleBreakpoint<CR>')
+keymap('n', '<leader>db', ':DapToggleBreakpoint<CR>')
 keymap('n', '<leader>dd', ':DapContinue<CR>')
+keymap('n', '<leader>dt', ':DapTerminate<CR>')
