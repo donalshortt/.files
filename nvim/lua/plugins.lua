@@ -108,9 +108,6 @@ local plugins = {
 	'rcarriga/nvim-dap-ui',
 	'nvim-neotest/nvim-nio',
 	'folke/lazydev.nvim',
-
-	-- lifetime highlighted
-	'cordx56/rustowl'
 }
 
 local opts = {}
