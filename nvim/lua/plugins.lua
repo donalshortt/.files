@@ -107,10 +107,10 @@ local plugins = {
 	'mfussenegger/nvim-dap',
 	'rcarriga/nvim-dap-ui',
 	'nvim-neotest/nvim-nio',
-
-	"nvimtools/hydra.nvim",
-
 	'folke/lazydev.nvim',
+
+	-- lifetime highlighted
+	'cordx56/rustowl'
 }
 
 local opts = {}
