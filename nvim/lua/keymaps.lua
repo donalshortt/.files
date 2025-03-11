@@ -27,6 +27,13 @@ keymap('n', '<C-l>', '<C-w>l')
 keymap('n', '<C-M-h>', 'zh')
 keymap('n', '<C-M-l>', 'zl')
 
+-- quickfix list
+keymap("n", "<leader>qf", function()
+	vim.cmd("copen")            -- Open the quickfix list
+	vim.diagnostic.setqflist()  -- Populate quickfix list with LSP diagnostics
+end, { desc = "Show all LSP errors in quickfix" })
+keymap("n", "<leader>Qf", ":cclose<CR>", { desc = "Close quickfix list" })
+
 
 -- LSP SAGA
 
