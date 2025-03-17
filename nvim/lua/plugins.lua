@@ -107,7 +107,7 @@ local plugins = {
 	'mfussenegger/nvim-dap',
 	'rcarriga/nvim-dap-ui',
 	'nvim-neotest/nvim-nio',
-	'folke/lazydev.nvim'
+	'folke/lazydev.nvim',
 }
 
 local opts = {}

@@ -27,6 +27,13 @@ keymap('n', '<C-l>', '<C-w>l')
 keymap('n', '<C-M-h>', 'zh')
 keymap('n', '<C-M-l>', 'zl')
 
+-- quickfix list
+keymap("n", "<leader>qf", function()
+	vim.cmd("copen")            -- Open the quickfix list
+	vim.diagnostic.setqflist()  -- Populate quickfix list with LSP diagnostics
+end, { desc = "Show all LSP errors in quickfix" })
+keymap("n", "<leader>Qf", ":cclose<CR>", { desc = "Close quickfix list" })
+
 
 -- LSP SAGA
 
@@ -56,7 +63,7 @@ keymap("n", "s]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
 
 -- toggle hover doc
-keymap("n", "<leader>d", "<cmd>Lspsaga hover_doc<CR>")
+keymap("n", "<leader>k", "<cmd>Lspsaga hover_doc<CR>")
 
 -- toggle terminal
 keymap({"n", "t"}, "<leader>;", "<cmd>Lspsaga term_toggle<CR>")
@@ -97,7 +104,10 @@ keymap('n', '<leader>lc', ':Leet console<CR>')
 keymap('n', '<leader>r', ':!kitty -e sh -c "cargo run" &<CR>')
 
 
--- DEBUGGER
-keymap('n', '<leader>db', ':DapToggleBreakpoint<CR>')
-keymap('n', '<leader>dd', ':DapContinue<CR>')
-keymap('n', '<leader>dt', ':DapTerminate<CR>')
+-- DEBUGGING
+keymap("n", "<leader>db", ":DapToggleBreakpoint<CR>")
+keymap("n", "<leader>dd", ":DapContinue<CR>")
+keymap("n", "<leader>df", ":DapStepInto<CR>")
+keymap("n", "<leader>ds", ":DapStepOver<CR>")
+keymap("n", "<leader>da", ":DapStepOut<CR>")
+keymap("n", "<leader>dw", ":DapTerminate<CR>")
