@@ -12,6 +12,8 @@ export PATH="$PATH:/home/donal/.cargo/bin"
 export PATH="$PATH:/home/donal/.pyenv/bin"
 export PATH="$PATH:/home/donal/go/bin"
 
+export AWS_PROFILE=sfs-staging
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
