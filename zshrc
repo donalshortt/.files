@@ -124,3 +124,6 @@ eval "$(pyenv virtualenv-init -)"
 
 #source /home/donal/.config/broot/launcher/bash/br
 source /usr/share/nvm/init-nvm.sh
+
+bindkey '^I'   complete-word       # tab          | complete
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
