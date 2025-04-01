@@ -34,6 +34,9 @@ keymap("n", "<leader>qf", function()
 end, { desc = "Show all LSP errors in quickfix" })
 keymap("n", "<leader>Qf", ":cclose<CR>", { desc = "Close quickfix list" })
 
+-- close tab
+keymap("n", "<leader>qq", ":bd<CR>")
+
 
 -- LSP SAGA
 
@@ -88,10 +91,6 @@ keymap('n', '<S-TAB>', ':BufferPrevious<CR>')
 keymap('n', '<C-t>',   ':tabnew<CR>')
 
 
--- NVIM TREE
-keymap('n', '<leader>v', ':NvimTreeToggle<CR>')
-
-
 -- LAZYGIT 
 keymap('n', '<leader>ll', ':LazyGit<CR>')
 
@@ -111,3 +110,7 @@ keymap("n", "<leader>df", ":DapStepInto<CR>")
 keymap("n", "<leader>ds", ":DapStepOver<CR>")
 keymap("n", "<leader>da", ":DapStepOut<CR>")
 keymap("n", "<leader>dw", ":DapTerminate<CR>")
+
+
+-- CHAD TREE
+keymap("n", "<leader>t", ":CHADopen<CR>")
