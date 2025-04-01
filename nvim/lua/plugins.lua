@@ -58,9 +58,6 @@ local plugins = {
 	'zbirenbaum/copilot.lua',
 	'zbirenbaum/copilot-cmp',
 
-	-- autocloses things
-	'cohama/lexima.vim',
-
 	-- lsp enchancer plugin; floating panes for goto definitions, code actions, etc.
 	{"glepnir/lspsaga.nvim", event = "LspAttach"},
 
