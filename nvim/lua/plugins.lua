@@ -108,6 +108,9 @@ local plugins = {
 	'rcarriga/nvim-dap-ui',
 	'nvim-neotest/nvim-nio',
 	'folke/lazydev.nvim',
+
+	-- tree
+	'ms-jpq/chadtree'
 }
 
 local opts = {}
