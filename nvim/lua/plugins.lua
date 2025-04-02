@@ -55,6 +55,7 @@ local plugins = {
 	-- handles linters and formatters
 	'jose-elias-alvarez/null-ls.nvim',
 
+	-- github copilot
 	'zbirenbaum/copilot.lua',
 	'zbirenbaum/copilot-cmp',
 
