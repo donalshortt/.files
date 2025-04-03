@@ -164,35 +164,35 @@ super + a + {Left,Down,Up,Right}
 
 # Multimedia keys
 XF86AudioRaiseVolume
-  amixer -q set Master 5%+ unmute
+	amixer -q set Master 5%+ unmute
 
 # Still multimedia
 XF86AudioLowerVolume
-  amixer -q set Master 5%- unmute
+	amixer -q set Master 5%- unmute
 
 # still
 XF86AudioMute
-  amixer -D pulse sset Master toggle-mute
+	amixer -D pulse sset Master toggle-mute
   
 # amixer -q set Master toggle
 # Simple amixer command seems to have problems unmuting device
 
 # Brightness up
 XF86MonBrightnessUp
-  xbacklight -inc 5
+	xbacklight -inc 5
 
 # And brightness down
 XF86MonBrightnessDown
-  xbacklight -dec 5
+	xbacklight -dec 5
 
 # screenshot
 Print
-    maim -o -s | xclip -selection clipboard -t image/png
+	maim -o -s | xclip -selection clipboard -t image/png
 
 super + Print
-  ~/.config/bspwm/scripts/screenshot.sh
+	~/.config/bspwm/scripts/screenshot.sh
 
 
 # show keybindings
 super + F1
-  ~/.config/bspwm/scripts/keybindings_rofi.sh
+	~/.config/bspwm/scripts/keybindings_rofi.sh
