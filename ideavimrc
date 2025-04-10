@@ -1,4 +1,57 @@
-set relativenumber
+"" Base Settings
+"" ========================================================
 
-imap <C-e> <C-o>$
-imap <C-a> <C-o>0
+set scrolloff=20
+set linenumber
+set relativenumber
+set showmode
+set showcmd
+
+set smartcase
+set incsearch
+set hlsearch
+
+set visualbell
+
+" Use system clipboard
+set clipboard+=unnamed   
+
+let mapleader = ","
+
+
+"" Plugin Settings
+"" ========================================================
+
+set surround
+set highlightedyank
+set sneak
+set nerdtree
+
+" Easymotion settings
+set easymotion
+set notimeout
+
+"" Key mappings
+"" ========================================================
+
+nmap <leader>qf <Action>( ActivateProblemsViewToolWindow )
+
+" Display options
+map <leader>dd <action>(ToggleDistractionFreeMode)
+
+" Open NERDTree (use q to exit)
+map <leader>t :NERDTreeToggle<CR>
+
+" Close active tab
+map <leader>q <action>(CloseContent)
+
+" Go to code
+nmap <leader>gy <Action>(GotoTypeDeclaration)
+nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gu <Action>(ShowUsages)
+nmap <leader>gt <Action>(GotoTest)
+
+" Errors
+nmap s] <Action>(GotoNextError)
+nmap s[ <Action>(GotoPreviousError)
+nmap <leader>a <Action>(ShowIntentionActions)
