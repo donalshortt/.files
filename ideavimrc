@@ -55,3 +55,10 @@ nmap <leader>gt <Action>(GotoTest)
 nmap s] <Action>(GotoNextError)
 nmap s[ <Action>(GotoPreviousError)
 nmap <leader>a <Action>(ShowIntentionActions)
+
+" Tab navigation
+nnoremap <Tab> :action NextTab<CR>
+nnoremap <S-Tab> :action PreviousTab<CR>
+
+" Stop yanking to default register
+nmap ci" "_ci"
