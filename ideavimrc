@@ -62,7 +62,8 @@ nnoremap <S-Tab> :action PreviousTab<CR>
 
 " Stop yanking to default register
 nmap ci" "_ci"
+vnoremap p "_dP
 
 " Comment out code
-nmap <leader>gc <Action>(CommentByLineComment)
-vmap <leader>gc <Action>(CommentByLineComment)
+nmap gc <Action>(CommentByLineComment)
+vmap gc <Action>(CommentByLineComment)
