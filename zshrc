@@ -51,7 +51,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -110,20 +110,26 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-
 if [ -f ~/.zsh_aliases ]; then
-	. ~/.zsh_aliases
+  source ~/.zsh_aliases
 fi
 
 setopt extendedglob
 
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-#source /home/donal/.config/broot/launcher/bash/br
-source /usr/share/nvm/init-nvm.sh
+# source /home/donal/.config/broot/launcher/bash/br
+
+# stub nvm until you actually call it
+command -v nvm &>/dev/null || \
+  function nvm() { source "$NVM_DIR/nvm.sh" && nvm "$@"; }
+
+# same for npm/npx if you use them as functions
+command -v npm &>/dev/null || \
+  function npm() { source "$NVM_DIR/nvm.sh" && npm "$@"; }
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
