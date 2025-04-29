@@ -1,6 +1,3 @@
-emulate -L zsh
-zmodload zsh/zprof
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -136,5 +133,3 @@ command -v npm &>/dev/null || \
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
-
-zprof
