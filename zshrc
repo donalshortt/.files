@@ -51,7 +51,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -75,6 +75,34 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+autoload -Uz compinit
+# don’t run it at startup
+zstyle ':completion:*' rehash true
+# run compinit only when you actually hit Tab
+function _lazy_compinit() {
+  compinit -C -u
+  zle reset-prompt
+  zle -D _lazy_compinit
+}
+zle -N _lazy_compinit
+bindkey '^I' _lazy_compinit
+ 
+# ——— Stub out ALL compinit calls to use -C (no dump) and -u (no audit) ———
+autoload -Uz compinit
+function compinit() {
+  # call the real compinit with our flags
+  builtin compinit -C -u "$@"
+}
+
+# Optional: still lazy-load on first Tab (will also use -C -u)
+zstyle ':completion:*' rehash true
+function _lazy_compinit() {
+  compinit       # same as compinit -C -u
+  zle reset-prompt
+  zle -D _lazy_compinit
+}
+zle -N _lazy_compinit
+bindkey '^I' _lazy_compinit
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -118,12 +146,18 @@ fi
 setopt extendedglob
 
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 #source /home/donal/.config/broot/launcher/bash/br
-source /usr/share/nvm/init-nvm.sh
+# stub nvm until you actually call it
+command -v nvm &>/dev/null || \
+  function nvm() { source "$NVM_DIR/nvm.sh" && nvm "$@"; }
+
+# same for npm/npx if you use them as functions
+command -v npm &>/dev/null || \
+  function npm() { source "$NVM_DIR/nvm.sh" && npm "$@"; }
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
