@@ -47,7 +47,7 @@ map <leader>q <action>(CloseContent)
 
 " Go to code
 nmap <leader>gy <Action>(GotoTypeDeclaration)
-nmap <leader>gi <Action>(GotoImplementation)
+nmap <leader>gd <Action>(GotoImplementation)
 nmap <leader>gu <Action>(ShowUsages)
 nmap <leader>gt <Action>(GotoTest)
 
@@ -61,8 +61,7 @@ nnoremap <Tab> :action NextTab<CR>
 nnoremap <S-Tab> :action PreviousTab<CR>
 
 " Stop yanking to default register
-nmap ci" "_ci"
-vnoremap p "_dP
+nnoremap c "_c
 
 " Comment out code
 nmap gc <Action>(CommentByLineComment)
