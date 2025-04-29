@@ -1,3 +1,6 @@
+emulate -L zsh
+zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -75,34 +78,6 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-autoload -Uz compinit
-# don’t run it at startup
-zstyle ':completion:*' rehash true
-# run compinit only when you actually hit Tab
-function _lazy_compinit() {
-  compinit -C -u
-  zle reset-prompt
-  zle -D _lazy_compinit
-}
-zle -N _lazy_compinit
-bindkey '^I' _lazy_compinit
- 
-# ——— Stub out ALL compinit calls to use -C (no dump) and -u (no audit) ———
-autoload -Uz compinit
-function compinit() {
-  # call the real compinit with our flags
-  builtin compinit -C -u "$@"
-}
-
-# Optional: still lazy-load on first Tab (will also use -C -u)
-zstyle ':completion:*' rehash true
-function _lazy_compinit() {
-  compinit       # same as compinit -C -u
-  zle reset-prompt
-  zle -D _lazy_compinit
-}
-zle -N _lazy_compinit
-bindkey '^I' _lazy_compinit
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -138,9 +113,8 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-
 if [ -f ~/.zsh_aliases ]; then
-	. ~/.zsh_aliases
+  source ~/.zsh_aliases
 fi
 
 setopt extendedglob
@@ -150,7 +124,8 @@ eval "$(zoxide init zsh)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-#source /home/donal/.config/broot/launcher/bash/br
+# source /home/donal/.config/broot/launcher/bash/br
+
 # stub nvm until you actually call it
 command -v nvm &>/dev/null || \
   function nvm() { source "$NVM_DIR/nvm.sh" && nvm "$@"; }
@@ -161,3 +136,5 @@ command -v npm &>/dev/null || \
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+
+zprof
