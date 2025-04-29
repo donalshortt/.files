@@ -2,7 +2,6 @@
 "" ========================================================
 
 set scrolloff=20
-set linenumber
 set relativenumber
 set showmode
 set showcmd
@@ -26,9 +25,6 @@ set surround
 set highlightedyank
 set sneak
 set nerdtree
-
-" Easymotion settings
-set easymotion
 set notimeout
 
 "" Key mappings
@@ -62,3 +58,6 @@ nnoremap <S-Tab> :action PreviousTab<CR>
 
 " Stop yanking to default register
 nmap ci" "_ci"
+
+" Replace current line
+nnoremap S cc

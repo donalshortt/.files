@@ -25,8 +25,8 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 # this is for <leader>r in vim
-bspc rule -a my_very_first_game desktop='^5'
-bspc rule -a unnamed_strat_game desktop='^5'
+bspc rule -a my_very_first_game desktop='^7'
+bspc rule -a unnamed_strat_game desktop='^7'
 
 
 # Border
