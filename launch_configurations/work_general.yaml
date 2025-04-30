@@ -30,16 +30,22 @@ windows:
       - title: 4200 (Dealerportal)
         layout:
           cwd: /home/donal/work/stellantis/frontend
+          commands:
+            - exec: npx ng serve --project dealerportal --port 4200
           is_focused: true
         color: green
       - title: 4201 (Version)
         layout:
           cwd: /home/donal/work/stellantis/frontend
+          commands:
+            - exec: jq '.projects | keys' angular.json
           is_focused: true
         color: green
       - title: Socat
         layout:
           cwd: /home/donal/work/stellantis/frontend
+          commands:
+            - exec: socat tcp-listen:5000,reuseaddr,fork tcp:localhost:5001
           is_focused: true
         color: red
       - title: General
@@ -52,16 +58,23 @@ windows:
       - title: Queuer
         layout:
           cwd: /home/donal/work/stellantis/backend
+          commands:
+            - exec: sail up -d
+            - exec: sail artisan queue:listen --queue=default,priority,emails,feed --timeout=0
           is_focused: true
         color: green
       - title: Logs
         layout:
           cwd: /home/donal/work/stellantis/backend/storage/logs
+          commands:
+            - exec: tail -f laravel.log
           is_focused: true
         color: green
       - title: BetterBe
         layout:
           cwd: /home/donal/work/stellantis/backend
+          commands:
+            - exec: ./betterbe.sh acceptance
           is_focused: true
         color: red
       - title: General
