@@ -63,3 +63,6 @@ nnoremap c "_c
 " Comment out code
 nmap gc <Action>(CommentByLineComment)
 vmap gc <Action>(CommentByLineComment)
+
+" Annotate with git blame
+nmap gb <Action>(Annotate)
