@@ -83,6 +83,7 @@ keymap('n', '<leader>ff', ':Telescope find_files<CR>')
 keymap('n', '<leader>fd', ':Telescope live_grep<CR>')
 keymap('n', '<leader>fs', ':Telescope grep_string<CR>')
 keymap('n', '<leader>fa', ':Telescope command_history<CR>')
+keymap('n', '<leader>fk', ':Telescope keymaps<CR>')
 
 
 -- BARBAR
