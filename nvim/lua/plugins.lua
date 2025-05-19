@@ -112,6 +112,9 @@ local plugins = {
 
 	-- autocloses things
 	'cohama/lexima.vim',
+
+	-- make text pretty
+	'godlygeek/tabular',
 }
 
 local opts = {}
