@@ -119,6 +119,8 @@ fi
 
 setopt extendedglob
 
+unsetopt correct_all
+
 eval "$(zoxide init zsh)"
 # eval "$(starship init zsh)"
 eval "$(pyenv init -)"
@@ -136,3 +138,5 @@ command -v npm &>/dev/null || \
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+export PATH="/home/donal/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/donal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
