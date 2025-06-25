@@ -16,6 +16,7 @@ export AWS_PROFILE=sfs-staging
 export CAPACITOR_ANDROID_STUDIO_PATH=/opt/android-studio/bin/studio
 export ANDROID_HOME=/home/donal/Android/Sdk
 export ANDROID_TARGET=R5CW10W8ZGV
+# export ANDROID_TARGET=Medium_Phone
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
