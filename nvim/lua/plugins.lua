@@ -108,7 +108,13 @@ local plugins = {
 	'folke/lazydev.nvim',
 
 	-- tree
-	'ms-jpq/chadtree'
+	'ms-jpq/chadtree',
+
+	-- autocloses things
+	'cohama/lexima.vim',
+
+	-- make text pretty
+	'godlygeek/tabular',
 }
 
 local opts = {}

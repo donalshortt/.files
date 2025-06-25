@@ -3,14 +3,42 @@ local dap = require("dap")
 dap.adapters.gdb = {
   type = "executable",
   command = "rust-gdb",
-  args = { "--interpreter=dap", "--eval-command", "set print pretty on", "-q" }
+  args = { "--interpreter=dap",
+    "--eval-command=set print pretty on",
+    "--eval-command=set debuginfod enabled on",
+  "-q"
+  }
 }
+local cwd        = vim.fn.getcwd()
+local deps_dir   = cwd .. "/target/debug/deps"
+
+-- get the sysroot, e.g. /home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu
+local sysroot    = vim.fn.trim(vim.fn.system("rustc --print sysroot"))
+-- get the host triple, e.g. x86_64-unknown-linux-gnu
+local host_triple = vim.fn.trim(vim.fn.system("rustc -Vv | awk '/host:/ {print $2}'"))
+local stdlib_dir = sysroot .. "/lib/rustlib/" .. host_triple .. "/lib"
+
+-- preserve any existing LD_LIBRARY_PATH
+local old_ld = os.getenv("LD_LIBRARY_PATH") or ""
+
+-- build a colon-separated path
+local ldpath = table.concat(
+  { deps_dir, stdlib_dir, old_ld ~= "" and old_ld or nil },
+  ":"
+)
 
 dap.configurations.rust = {
 	{
 		name = "Launch",
 		type = "gdb",
 		request = "launch",
+		env     = {
+			CARGO_MANIFEST_DIR = cwd,
+			LD_LIBRARY_PATH    = ldpath,
+			DISPLAY            = os.getenv("DISPLAY"),
+			WAYLAND_DISPLAY    = os.getenv("WAYLAND_DISPLAY"),
+			XDG_RUNTIME_DIR    = os.getenv("XDG_RUNTIME_DIR"),
+		},
 		program = function()
 			-- Ensure the project is built before launching
 			os.execute('cargo build')
@@ -30,6 +58,13 @@ dap.configurations.rust = {
 		name = "Select and attach to process",
 		type = "gdb",
 		request = "attach",
+		env     = {
+			CARGO_MANIFEST_DIR = cwd,
+			LD_LIBRARY_PATH    = ldpath,
+			DISPLAY            = os.getenv("DISPLAY"),
+			WAYLAND_DISPLAY    = os.getenv("WAYLAND_DISPLAY"),
+			XDG_RUNTIME_DIR    = os.getenv("XDG_RUNTIME_DIR"),
+		},
 		program = function()
 			-- Ensure the project is built
 			os.execute('cargo build')
@@ -52,6 +87,13 @@ dap.configurations.rust = {
 		name = 'Attach to gdbserver :1234',
 		type = 'gdb',
 		request = 'attach',
+		env     = {
+			CARGO_MANIFEST_DIR = cwd,
+			LD_LIBRARY_PATH    = ldpath,
+			DISPLAY            = os.getenv("DISPLAY"),
+			WAYLAND_DISPLAY    = os.getenv("WAYLAND_DISPLAY"),
+			XDG_RUNTIME_DIR    = os.getenv("XDG_RUNTIME_DIR"),
+		},
 		target = 'localhost:1234',
 		program = function()
 			-- Ensure the project is built
@@ -108,19 +150,16 @@ local opts = {
 		},
 	},
 }
-require("dapui").setup(opts)
 
 local dapui = require("dapui")
+dapui.setup(opts)
 
-dap.listeners.before.attach.dapui_config = function()
-	dapui.open()
+dap.listeners.after.event_initialized["dapui"] = function()
+  dapui.open()
 end
-dap.listeners.before.launch.dapui_config = function()
-	dapui.open()
+dap.listeners.before.event_terminated["dapui"] = function()
+  dapui.close()
 end
-dap.listeners.before.event_terminated.dapui_config = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-	dapui.close()
+dap.listeners.before.event_exited["dapui"] = function()
+  dapui.close()
 end
