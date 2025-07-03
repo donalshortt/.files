@@ -13,6 +13,10 @@ export PATH="$PATH:/home/donal/.pyenv/bin"
 export PATH="$PATH:/home/donal/go/bin"
 
 export AWS_PROFILE=sfs-staging
+export CAPACITOR_ANDROID_STUDIO_PATH=/opt/android-studio/bin/studio
+export ANDROID_HOME=/home/donal/Android/Sdk
+export ANDROID_TARGET=R5CW10W8ZGV
+# export ANDROID_TARGET=Medium_Phone
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -116,6 +120,8 @@ fi
 
 setopt extendedglob
 
+unsetopt correct_all
+
 eval "$(zoxide init zsh)"
 # eval "$(starship init zsh)"
 eval "$(pyenv init -)"
@@ -133,3 +139,5 @@ command -v npm &>/dev/null || \
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+export PATH="/home/donal/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/donal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
