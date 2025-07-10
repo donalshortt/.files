@@ -53,7 +53,7 @@ local plugins = {
 	},
 
 	-- handles linters and formatters
-	'jose-elias-alvarez/null-ls.nvim',
+	'nvimtools/none-ls.nvim',
 
 	-- github copilot
 	'zbirenbaum/copilot.lua',
