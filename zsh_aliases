@@ -18,8 +18,11 @@ alias cr="cargo run"
 alias sail="[ -f sail ] && bash sail || bash vendor/bin/sail"
 alias sev="sudo systemctl start evremap.service"
 alias stev="sudo systemctl stop evremap.service"
-alias glf="git log --follow -p ${1}"
 alias ye="yay -Sy --noconfirm ${2}"
 alias cc="sail artisan config:clear && sail artisan config:cache"
 alias icat="kitten icat ${1}"
 alias rr="evcxr"
+
+# Git aliases
+alias gtc="git log -- ${1}"
+alias glf="git log --follow -p ${1}"
