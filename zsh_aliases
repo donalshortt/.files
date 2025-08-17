@@ -22,6 +22,7 @@ alias ye="yay -Sy --noconfirm ${2}"
 alias cc="sail artisan config:clear && sail artisan config:cache"
 alias icat="kitten icat ${1}"
 alias rr="evcxr"
+alias wtf="sail artisan optimize:clear && sail artisan route:clear && sail artisan config:clear && sail artisan view:clear && sail artisan cache:clear && sail composer dump-autoload"
 
 # Git aliases
 alias gtc="git log -- ${1}"
