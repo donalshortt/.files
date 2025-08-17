@@ -4,7 +4,6 @@ require("options")
 
 -- plugin configs
 require("plugins_config.nightfox")
-require("plugins_config.feline")
 require("plugins_config.telescope")
 require("plugins_config.treesitter")
 require("plugins_config.lazygit")
@@ -17,3 +16,4 @@ require("plugins_config.copilot")
 require("plugins_config.copilot_cmp")
 require("plugins_config.leetcode")
 require("plugins_config.debugging")
+require("plugins_config.lualine")

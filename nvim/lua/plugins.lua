@@ -19,7 +19,7 @@ local plugins = {
 	'nvim-tree/nvim-web-devicons',
 
 	-- pretty bottom statusline
-	'freddiehaddad/feline.nvim',
+	'nvim-lualine/lualine.nvim',
 
 	-- pretty tabs
 	'romgrk/barbar.nvim',
