@@ -44,7 +44,7 @@ keymap("n", "<leader>qq", ":bd<CR>")
 keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 
 -- shows references, implementation & definition
-keymap("n", "gs", "<cmd>Lspsaga finder<CR>")
+keymap("n", "gu", "<cmd>Lspsaga finder<CR>")
 
 -- go to definition
 keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")

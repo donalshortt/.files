@@ -5,4 +5,8 @@ require('lspsaga').setup({
 	ui = {
 		code_action = ''
 	},
+	finder = {
+		max_height = 0.7,
+		layout = 'normal',
+	},
 })
