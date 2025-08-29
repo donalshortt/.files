@@ -18,6 +18,8 @@ export ANDROID_HOME=/home/donal/Android/Sdk
 export ANDROID_TARGET=R5CW10W8ZGV
 # export ANDROID_TARGET=Medium_Phone
 
+export BROWSER=/usr/bin/vivaldi-stable
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
