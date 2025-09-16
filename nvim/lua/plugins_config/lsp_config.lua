@@ -64,3 +64,10 @@ require("lspconfig").phpactor.setup {
     ["language_server_psalm.enabled"] = false,
   }
 }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
