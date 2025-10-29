@@ -66,3 +66,6 @@ vmap gc <Action>(CommentByLineComment)
 
 " Annotate with git blame
 nmap gb <Action>(Annotate)
+
+" Clear search highlight
+command! H let @/=""
