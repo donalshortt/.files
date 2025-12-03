@@ -11,17 +11,18 @@ require('mason-lspconfig').setup {
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig')
 
-lspconfig.clangd.setup {
+vim.lsp.config("clangd", {
 	capabilities = capabilities,
 	cmd = {
 		"clangd",
 		"--offset-encoding=utf-16",
 	},
-}
+})
+vim.lsp.enable({"clangd"})
 
-lspconfig.lua_ls.setup {
+vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	settings = {
 		Lua = {
@@ -30,29 +31,35 @@ lspconfig.lua_ls.setup {
 			}
 		}
 	}
-}
+})
+vim.lsp.enable({"lua_ls"})
 
-lspconfig.bashls.setup {
+vim.lsp.config("bashls", {
 	capabilities = capabilities,
-}
+})
+vim.lsp.enable({"bashls"})
 
-lspconfig.pyright.setup {
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
-}
+})
+vim.lsp.enable({"pyright"})
 
-lspconfig.ts_ls.setup {
+vim.lsp.config("ts_ls", {
 	capabilities = capabilities,
-}
+})
+vim.lsp.enable({"ts_ls"})
 
-lspconfig.eslint.setup {
+vim.lsp.config("eslint", {
 	capabilities = capabilities,
-}
+})
+vim.lsp.enable({"eslint"})
 
-lspconfig.julials.setup {
+vim.lsp.config("julials", {
 	capabilities = capabilities,
-}
+})
+vim.lsp.enable({"julials"})
 
-require("lspconfig").phpactor.setup {
+vim.lsp.config("phpactor", {
   root_dir = function(_)
     return vim.loop.cwd()
   end,
@@ -63,7 +70,8 @@ require("lspconfig").phpactor.setup {
     ["language_server_phpstan.enabled"] = false,
     ["language_server_psalm.enabled"] = false,
   }
-}
+})
+vim.lsp.enable({"phpactor"})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.rs",
