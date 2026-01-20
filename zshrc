@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -132,11 +132,11 @@ eval "$(pyenv virtualenv-init -)"
 
 # stub nvm until you actually call it
 command -v nvm &>/dev/null || \
-  function nvm() { source "$NVM_DIR/nvm.sh" && nvm "$@"; }
+  function nvm() { source "/home/$USER/.nvm/nvm.sh" && nvm "$@"; }
 
 # same for npm/npx if you use them as functions
 command -v npm &>/dev/null || \
-  function npm() { source "$NVM_DIR/nvm.sh" && npm "$@"; }
+  function npm() { source "/home/$USER/.nvm/nvm.sh" && npm "$@"; }
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest

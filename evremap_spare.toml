@@ -11,7 +11,11 @@ device_name = "CHICONY USB NetVista Full Width Keyboard"
 # Holding it produces LEFTCTRL, but tapping it
 # will produce ESC.
 # Both `tap` and `hold` can expand to multiple output keys.
+[[remap]]
+input = ["KEY_CAPSLOCK"]
+output = ["KEY_ESC"]
+
 [[dual_role]]
-input = "KEY_CAPSLOCK"
+input = "KEY_SPACE"
 hold = ["KEY_LEFTMETA"]
-tap = ["KEY_ESC"]
+tap = ["KEY_SPACE"]
