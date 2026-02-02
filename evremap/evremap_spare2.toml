@@ -14,8 +14,3 @@ device_name = "Trust Keyboard"
 [[remap]]
 input = ["KEY_CAPSLOCK"]
 output = ["KEY_ESC"]
-
-[[dual_role]]
-input = "KEY_SPACE"
-hold = ["KEY_LEFTMETA"]
-tap = ["KEY_SPACE"]

@@ -1,7 +1,7 @@
 # The name of the device to remap.
 # Run `sudo evremap list-devices` to see the devices available
 # on your system.
-device_name = "CHICONY USB NetVista Full Width Keyboard"
+device_name = "AT Translated Set 2 keyboard"
 
 # If you have multiple devices with the same name, you can optionally
 # specify the `phys` value that is printed by the `list-devices` subcommand
@@ -14,8 +14,3 @@ device_name = "CHICONY USB NetVista Full Width Keyboard"
 [[remap]]
 input = ["KEY_CAPSLOCK"]
 output = ["KEY_ESC"]
-
-[[dual_role]]
-input = "KEY_SPACE"
-hold = ["KEY_LEFTMETA"]
-tap = ["KEY_SPACE"]
