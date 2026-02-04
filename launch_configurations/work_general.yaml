@@ -60,7 +60,7 @@ windows:
           cwd: /home/donal/stellantis/backend
           commands:
             - exec: sleep 4
-            - exec: sail artisan queue:listen --queue=default,priority,emails,feed --timeout=0
+            - exec: sail artisan queue:listen --queue=default,priority,emails,feed,myspace --timeout=0
           is_focused: true
         color: green
       - title: Logs
