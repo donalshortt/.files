@@ -29,5 +29,5 @@ alias lock="xscreensaver-command -lock"
 # Git aliases
 alias gtc="git log -- ${1}"
 alias glf="git log --follow -p ${1}"
-alias gco--"git checkout @{-2}"
-alias gco---"git checkout @{-3}"
+alias gco--="git checkout @{-2}"
+alias gco---="git checkout @{-3}"
