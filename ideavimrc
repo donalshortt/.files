@@ -72,3 +72,6 @@ nmap gb <Action>(Annotate)
 
 " Clear search highlight
 command! H let @/=""
+
+" Tooling windows
+nmap <leader>c <Action>(ActivateGitHubCopilotChatToolWindow)
