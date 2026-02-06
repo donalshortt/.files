@@ -38,6 +38,9 @@ map <leader>dd <action>(ToggleDistractionFreeMode)
 " Open NERDTree (use q to exit)
 map <leader>t :NERDTreeToggle<CR>
 
+" Open DB tool window
+map <leader>dr <action>(ActivateDatabaseToolWindow)
+
 " Close active tab
 map <leader>q <action>(CloseContent)
 
