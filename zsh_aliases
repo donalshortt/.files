@@ -25,6 +25,7 @@ alias rr="evcxr"
 alias wtf="sail artisan optimize:clear && sail artisan route:clear && sail artisan config:clear && sail artisan view:clear && sail artisan cache:clear && sail composer dump-autoload"
 alias bat="bat --paging=never ${1}"
 alias lock="xscreensaver-command -lock"
+alias stan="./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 16G"
 
 # Git aliases
 alias gtc="git log -- ${1}"
