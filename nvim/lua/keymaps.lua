@@ -115,3 +115,8 @@ keymap("n", "<leader>dw", ":DapTerminate<CR>")
 
 -- CHAD TREE
 keymap("n", "<leader>t", ":CHADopen<CR>")
+
+
+-- LEETCODE
+keymap("n", "<leader>lr", ":Leet run<CR>")
+keymap("n", "<leader>ls", ":Leet submit<CR>")

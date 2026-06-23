@@ -3,7 +3,7 @@ require("leetcode").setup({
 	arg = "leetcode.nvim",
 
 	---@type lc.lang
-	lang = "cpp",
+	lang = "typescript",
 
 	cn = { -- leetcode.cn
 		enabled = false, ---@type boolean
@@ -56,7 +56,40 @@ require("leetcode").setup({
 		["enter"] = {},
 
 		---@type fun(question: lc.ui.Question)[]
-		["question_enter"] = {},
+		["question_enter"] = {
+			function()
+				vim.schedule(function()
+					local buf = vim.api.nvim_get_current_buf()
+
+					if vim.bo[buf].filetype ~= "rust" then
+						return
+					end
+
+					local file = vim.api.nvim_buf_get_name(buf)
+
+					if file == "" then
+						return
+					end
+
+					local dir = vim.fn.fnamemodify(file, ":h")
+					local filename = vim.fn.fnamemodify(file, ":t")
+					local cargo_toml = dir .. "/Cargo.toml"
+
+					vim.fn.writefile({
+						"[package]",
+						'name = "leetcode-local"',
+						'version = "0.1.0"',
+						'edition = "2024"',
+						"",
+						"[lib]",
+						('path = "%s"'):format(filename),
+						"",
+					}, cargo_toml)
+
+					vim.cmd("silent! RustLsp restart")
+				end)
+			end,
+		},
 
 		---@type fun()[]
 		["leave"] = {},
