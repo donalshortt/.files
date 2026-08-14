@@ -25,7 +25,12 @@ local plugins = {
 	'romgrk/barbar.nvim',
 
 	-- makes ASTs for source files
-	'nvim-treesitter/nvim-treesitter',
+	{
+		'nvim-treesitter/nvim-treesitter',
+		branch = 'main',
+		lazy = false,
+		build = ':TSUpdate',
+	},
 
 	-- some sort of utility lib for nvim
 	'nvim-lua/plenary.nvim',
