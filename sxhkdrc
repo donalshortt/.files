@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	warp-terminal
+	kitty
 
 # greenclip launcher
 super + v
