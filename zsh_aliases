@@ -25,6 +25,7 @@ alias ye="yay -Sy --noconfirm ${2}"
 alias rr="evcxr"
 alias bat="bat --paging=never ${1}"
 alias lock="xscreensaver-command -lock"
+alias telnet="rlwrap telnet ${1}"
 
 # Git aliases
 alias gtc="git log -- ${1}"
