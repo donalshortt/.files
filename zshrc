@@ -140,5 +140,5 @@ command -v npm &>/dev/null || \
 
 bindkey '^I'   complete-word       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
-export PATH="/home/donal/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/home/donal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
