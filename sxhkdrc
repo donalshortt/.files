@@ -43,6 +43,9 @@ super + r
 super + q
     powermenu
 
+super + shift + q
+	xscreensaver-command -lock
+
 #
 # bspwm hotkeys
 #

@@ -43,7 +43,7 @@ map <leader>q <action>(CloseContent)
 
 " Go to code
 nmap <leader>gy <Action>(GotoTypeDeclaration)
-nmap <leader>gd <Action>(GotoImplementation)
+nmap <leader>gd <Action>(GotoDeclaration)
 nmap <leader>gu <Action>(ShowUsages)
 nmap <leader>gt <Action>(GotoTest)
 

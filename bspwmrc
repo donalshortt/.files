@@ -1,11 +1,11 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-sh ~/sysscripts/bspwm_monitors_and_desktops.sh
+~/sysscripts/bspwm_monitors_and_desktops.sh
 
 bspc config border_width         2
 bspc config window_gap           20
@@ -56,7 +56,7 @@ bspc config active_border_color         "#073642"
 # Autostart
 #
 # Bar
-sh ~/sysscripts/launch_polybar.sh &
+~/sysscripts/launch_polybar.sh &
 # Notifications
 /usr/bin/dunst &
 
@@ -76,3 +76,4 @@ xsetroot -cursor_name left_ptr &
 ~/.config/bspwm/scripts/low_bat_notifier.sh
 
 greenclip daemon &
+pgrep -x xscreensaver >/dev/null || xscreensaver --no-splash &
