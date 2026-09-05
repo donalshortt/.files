@@ -5,6 +5,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+source "$ZSH/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 export PATH="$PATH:/home/donal/sysscripts"
 export PATH="$PATH:/home/donal/.local/share/gem/ruby/3.0.0/bin"
 export PATH="$PATH:/home/donal/.local/bin"
@@ -12,7 +13,6 @@ export PATH="$PATH:/home/donal/.cargo/bin"
 export PATH="$PATH:/home/donal/.pyenv/bin"
 export PATH="$PATH:/home/donal/go/bin"
 
-export AWS_PROFILE=sfs-staging
 export CAPACITOR_ANDROID_STUDIO_PATH=/opt/android-studio/bin/studio
 export ANDROID_HOME=/home/donal/Android/Sdk
 export ANDROID_TARGET=R5CW10W8ZGV
@@ -86,7 +86,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autocomplete zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
