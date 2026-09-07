@@ -1,13 +1,13 @@
-alias v="nvim ${1}"
+alias v="nvim "
 alias lc="nvim leetcode.nvim"
-alias c="z ${1}"
+alias c="z "
 alias c-="cd -"
-alias open="xdg-open ${1}"
+alias open="xdg-open "
 alias sd="shutdown -h 0"
 alias gdb="gdb -q"
 alias clip="xclip -selection clipboard"
-alias ws="wormhole send ${1}"
-alias wr="wormhole recieve ${1}"
+alias ws="wormhole send "
+alias wr="wormhole recieve "
 alias bc="better-commits"
 alias pe="pet exec"
 alias sysup="yay -Syu --noconfirm"
@@ -19,19 +19,22 @@ alias clr="cargo clippy --release --all-targets --all-features -- -D warnings"
 alias sev="sudo systemctl restart evremap.service"
 alias stev="sudo systemctl stop evremap.service"
 alias sedit="nvim /usr/lib/systemd/system/evremap.service"
-alias ye="yay -Sy --noconfirm ${2}"
+alias ye="yay -Sy --noconfirm "
 alias rr="evcxr"
-alias bat="bat --paging=never ${1}"
+alias bat="bat --paging=never "
 alias lock="xscreensaver-command -lock"
-alias telnet="rlwrap telnet ${1}"
+alias telnet="rlwrap telnet "
 
 # Git aliases
-alias gtc="git log -- ${1}"
-alias glf="git log --follow -p ${1}"
+alias gtc="git log -- "
+alias glf="git log --follow -p "
 alias gco--="git checkout @{-2}"
 alias gco---="git checkout @{-3}"
-alias wta="gwta ../unnamed_${1} ${1}"
 
 gdif() {
     git diff "$@" | delta --line-numbers
+}
+
+wta() {
+    gwta "../unnamed_$1" "$1"
 }
