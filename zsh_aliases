@@ -10,8 +10,6 @@ alias ws="wormhole send ${1}"
 alias wr="wormhole recieve ${1}"
 alias bc="better-commits"
 alias pe="pet exec"
-alias gs="gh copilot suggest -s"
-alias ge="gh copilot explain"
 alias sysup="yay -Syu --noconfirm"
 alias gu="gaa; gc -m \"latest\"; gp"
 alias cr="RUST_BACKTRACE=1 cargo run"
@@ -32,6 +30,7 @@ alias gtc="git log -- ${1}"
 alias glf="git log --follow -p ${1}"
 alias gco--="git checkout @{-2}"
 alias gco---="git checkout @{-3}"
+alias wta="gwta ../unnamed_${1} ${1}"
 
 gdif() {
     git diff "$@" | delta --line-numbers
