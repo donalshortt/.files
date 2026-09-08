@@ -36,5 +36,5 @@ gdif() {
 }
 
 wta() {
-    gwta "../unnamed_$1" "$1"
+    git worktree add "../unnamed_$1" "$1"
 }
