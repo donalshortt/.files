@@ -138,7 +138,7 @@ command -v nvm &>/dev/null || \
 command -v npm &>/dev/null || \
   function npm() { source "/home/$USER/.nvm/nvm.sh" && npm "$@"; }
 
-bindkey '^I'   complete-word       # tab          | complete
+bindkey '^I'   menu-complete       # tab          | complete
 bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
