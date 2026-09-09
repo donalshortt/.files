@@ -36,5 +36,6 @@ gdif() {
 }
 
 wta() {
-    git worktree add "../unnamed_$1" "$1"
+    git worktree add "../unnamed_$1" "$1";
+	cd "../unnamed_$1"
 }
