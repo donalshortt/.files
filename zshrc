@@ -19,6 +19,7 @@ export ANDROID_TARGET=R5CW10W8ZGV
 # export ANDROID_TARGET=Medium_Phone
 
 export BROWSER=/usr/bin/vivaldi-stable
+export GPG_TTY=$(tty)
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

@@ -16,6 +16,7 @@ alias cr="RUST_BACKTRACE=1 cargo run"
 alias crr="RUST_BACKTRACE=1 cargo run --release"
 alias cl="cargo clippy --all-targets --all-features -- -D warnings"
 alias clr="cargo clippy --release --all-targets --all-features -- -D warnings"
+alias cgame='cargo run --target-dir /home/donal/projects/unnamed/unnamed_strat_game/target'
 alias sev="sudo systemctl restart evremap.service"
 alias stev="sudo systemctl stop evremap.service"
 alias ye="yay -Sy --noconfirm "
@@ -35,6 +36,7 @@ gdif() {
 }
 
 wta() {
+	git fetch origin;
     git worktree add "../unnamed_$1" "$1";
 	cd "../unnamed_$1"
 }
