@@ -36,7 +36,7 @@ gdif() {
 }
 
 wta() {
-	git fetch origin;
-    git worktree add "../unnamed_$1" "$1";
+	git fetch origin &&
+	git worktree add -b "$1" "../unnamed_$1" HEAD &&
 	cd "../unnamed_$1"
 }
