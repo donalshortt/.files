@@ -15,7 +15,8 @@ alias cr="RUST_BACKTRACE=1 cargo run"
 alias crr="RUST_BACKTRACE=1 cargo run --release"
 alias cl="cargo clippy --all-targets --all-features -- -D warnings"
 alias clr="cargo clippy --release --all-targets --all-features -- -D warnings"
-alias cgame='cargo run --target-dir /home/donal/projects/unnamed/unnamed_strat_game/target'
+# Share dependency builds while keeping each worktree's game artifacts distinct.
+alias cgame="$HOME/.local/bin/cgame"
 alias sev="sudo systemctl restart evremap.service"
 alias stev="sudo systemctl stop evremap.service"
 alias ye="yay -Sy --noconfirm "
@@ -35,8 +36,102 @@ gdif() {
     git diff "$@" | delta --line-numbers
 }
 
+unalias gwtrm 2>/dev/null
+gwtrm() {
+    emulate -L zsh
+    local range_pattern='^([0-9]+)-([0-9]+)$'
+    local issue_pattern='_([0-9]+)-'
+    local MATCH MBEGIN MEND
+    local -a match mbegin mend
+
+    if (( $# != 1 )) || ! [[ $1 =~ $range_pattern ]]; then
+        git worktree remove "$@"
+        return
+    fi
+
+    local -i first=$(( 10#${match[1]} )) last=$(( 10#${match[2]} ))
+    if (( first > last )); then
+        print -u2 -- 'gwtrm: range must be in ascending order (e.g. 258-262).'
+        return 1
+    fi
+
+    local git_dir candidate listing entry worktree main_worktree
+    local -a git_dirs worktrees
+    if ! git_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null); then
+        # A parent directory may contain several worktrees of the same repo.
+        for candidate in "$PWD"/*(N/); do
+            [[ -e "$candidate/.git" ]] || continue
+            git_dir=$(git -C "$candidate" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || continue
+            git_dirs+=("$git_dir")
+        done
+        git_dirs=("${(@u)git_dirs}")
+        if (( ${#git_dirs} != 1 )); then
+            print -u2 -- 'gwtrm: run inside a repository or a parent directory containing exactly one repository.'
+            return 1
+        fi
+        git_dir=$git_dirs[1]
+    fi
+
+    # Keep the Git context valid even as linked worktrees are removed.
+    listing=$(git --git-dir="$git_dir" worktree list --porcelain -z) || return
+    for entry in "${(@0)listing}"; do
+        [[ $entry == 'worktree '* ]] || continue
+        worktree=${entry#worktree }
+        if [[ -z $main_worktree ]]; then
+            main_worktree=$worktree
+            continue
+        fi
+        [[ ${worktree:t} =~ $issue_pattern ]] || continue
+        if (( 10#${match[1]} >= first && 10#${match[1]} <= last )); then
+            worktrees+=("$worktree")
+        fi
+    done
+
+    if (( ${#worktrees} == 0 )); then
+        print -u2 -- "gwtrm: no linked worktrees match $1."
+        return 1
+    fi
+    for worktree in "${worktrees[@]}"; do
+        if [[ ${PWD:A}/ == "${worktree:A}/"* ]]; then
+            print -u2 -- 'gwtrm: change out of the selected worktree before removing this range.'
+            return 1
+        fi
+    done
+
+    local -i result=0
+    for worktree in "${worktrees[@]}"; do
+        print -r -- "Removing $worktree"
+        git --git-dir="$git_dir" worktree remove -- "$worktree" || result=1
+    done
+    return $result
+}
+
 wta() {
-	git fetch origin &&
+	git pull &&
 	git worktree add -b "$1" "../unnamed_$1" HEAD &&
 	cd "../unnamed_$1"
+}
+
+# Return to the main checkout and remove the linked worktree we came from.
+wtr() {
+    emulate -L zsh
+    if (( $# != 0 )); then
+        print -u2 -- 'Usage: wtr (removes the current linked worktree)'
+        return 1
+    fi
+
+    local worktree listing main_worktree
+    local -a entries
+    worktree=$(git rev-parse --show-toplevel) || return
+    listing=$(git worktree list --porcelain -z) || return
+    entries=("${(@0)listing}")
+    main_worktree=${entries[1]#worktree }
+
+    if [[ ${worktree:A} == ${main_worktree:A} ]]; then
+        print -u2 -- 'wtr: already in the main checkout; nothing to remove.'
+        return 1
+    fi
+
+    cd -- "$main_worktree" &&
+        git worktree remove -- "$worktree"
 }
