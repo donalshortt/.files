@@ -1,0 +1,9 @@
+#!/bin/sh
+
+class="$2"
+
+case "$class" in
+    unnamed_strat_game*)
+        echo "desktop=^6"
+        ;;
+esac

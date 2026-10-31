@@ -25,32 +25,13 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 
-# WINDOW SETUPS
-
-# unn
-bspc rule -a my_very_first_game desktop='^6'
-bspc rule -a unnamed_strat_game desktop='^6'
-
-# work_general
-bspc rule -a jetbrains-webstorm \
-    -o state=floating rectangle=1200x800+0+0 \
-    -o desktop="^4$" follow=on \
-    -o title="frontend*"
-
-bspc rule -a jetbrains-phpstorm \
-    -o state=floating rectangle=1200x800+0+820 \
-    -o desktop="^5" follow=on \
-    -o title="backend*"
-
-bspc rule -a jetbrains-webstorm \
-    -o state=floating rectangle=1200x800+0+0 \
-    -o desktop="^6$" follow=on \
-    -o title="cms*"
-
 # Border
 bspc config focused_border_color        "#6c71c4"
 bspc config normal_border_color         "#073642"
 bspc config active_border_color         "#073642"
+
+# window locking
+bspc config external_rules_command "$HOME/.files/bspwm_external_rules"
 
 #
 # Autostart
