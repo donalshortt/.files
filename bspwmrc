@@ -28,8 +28,8 @@ bspc rule -a Screenkey manage=off
 # WINDOW SETUPS
 
 # unn
-bspc rule -a my_very_first_game desktop='^7'
-bspc rule -a unnamed_strat_game desktop='^7'
+bspc rule -a my_very_first_game desktop='^6'
+bspc rule -a unnamed_strat_game desktop='^6'
 
 # work_general
 bspc rule -a jetbrains-webstorm \
