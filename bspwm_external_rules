@@ -3,6 +3,7 @@
 class="$2"
 
 case "$class" in
+	game-development-api*)
     unnamed_strat_game*)
         echo "desktop=^6"
         ;;
