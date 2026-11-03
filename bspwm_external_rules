@@ -3,8 +3,7 @@
 class="$2"
 
 case "$class" in
-	game-development-api*)
-    unnamed_strat_game*)
+    unnamed_strat_game*|game-development-api*)
         echo "desktop=^6"
         ;;
 esac
