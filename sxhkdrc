@@ -46,6 +46,12 @@ super + q
 super + shift + q
 	xscreensaver-command -lock
 
+super + p
+	pavucontrol
+
+super + b
+	blueman-manager
+
 #
 # bspwm hotkeys
 #
