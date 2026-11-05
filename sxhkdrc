@@ -49,6 +49,9 @@ super + shift + q
 super + p
 	pavucontrol
 
+super + j
+	qpwgraph
+
 super + b
 	blueman-manager
 
