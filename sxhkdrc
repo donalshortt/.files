@@ -49,7 +49,7 @@ super + shift + q
 super + p
 	pavucontrol
 
-super + j
+super + q
 	qpwgraph
 
 super + b
