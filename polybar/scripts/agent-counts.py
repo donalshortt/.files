@@ -109,7 +109,7 @@ class Client:
                 raise RuntimeError("Codex status request failed")
             return response["result"]
 
-    def counts(self):
+    def threads(self):
         if self.connection is None:
             self.connect()
         loaded = set(self.call("thread/loaded/list", {})["data"])
@@ -133,7 +133,10 @@ class Client:
                     self.excluded_ids.add(thread_id)
             else:
                 roots.append(thread)
-        return count_threads(roots)
+        return roots
+
+    def counts(self):
+        return count_threads(self.threads())
 
 
 def main(argv=None):

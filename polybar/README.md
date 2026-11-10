@@ -4,6 +4,8 @@ Agent counter
 The centre bar displays `Agents: 8 working | 5 waiting`, refreshed every two
 seconds from the local Codex app-server's live session status.
 
+Click the counter, or press **Super+X**, to open the [agent picker](../rofi/README.md).
+
 - Working: a top-level session running a turn, including tool execution.
 - Waiting: an idle session ready for the next prompt, a session paused for input
   or approval, or a session reporting a system error that needs attention.

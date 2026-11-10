@@ -32,6 +32,10 @@ super + shift + d
                 -columns 2 -padding 50 -hide-scrollbar -terminal xfce4-terminal \
                 -show-icons -drun-icon-theme "Qogir-dark" -font "Droid Sans Regular 10"
 
+# pick a running agent
+super + x
+	/usr/bin/python3 -B "$HOME/.files/rofi/agent-picker.py"
+
 # power-menu 
 super + shift + e
      ~/.config/rofi/powermenu.sh
