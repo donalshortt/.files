@@ -5,7 +5,11 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-source "$ZSH/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+if [[ -r "$ZSH/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh" ]]; then
+  source "$ZSH/custom/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+elif [[ -r /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+fi
 export PATH="$PATH:/home/donal/sysscripts"
 export PATH="$PATH:/home/donal/.local/share/gem/ruby/3.0.0/bin"
 export PATH="$PATH:/home/donal/.local/bin"
@@ -128,8 +132,12 @@ setopt extendedglob
 unsetopt correct_all
 
 eval "$(zoxide init zsh)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if (( $+commands[pyenv] )); then
+  eval "$(pyenv init -)"
+  if command pyenv commands | command grep -Fx virtualenv-init >/dev/null; then
+    eval "$(pyenv virtualenv-init -)"
+  fi
+fi
 
 # source /home/donal/.config/broot/launcher/bash/br
 
