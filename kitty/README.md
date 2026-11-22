@@ -23,6 +23,11 @@ means unread agent activity; it does not distinguish a finished reply from a
 question. Urgency belongs to the OS window, so a hidden Kitty tab inside an
 already focused OS window cannot highlight that desktop independently.
 
+For [configured SSH hosts](../polybar/README.md), the Polybar counter also
+requests attention when an agent changes from working to waiting and the
+picker can identify its local Kitty pane. This uses the live status feed, so
+it works even when the terminal notification is swallowed by a multiplexer.
+
 Check Polybar's actual output for hidden and visible urgent desktops:
 
 ```sh
