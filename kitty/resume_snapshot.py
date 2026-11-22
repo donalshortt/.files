@@ -36,8 +36,8 @@ def safe_session(lines, sessions_by_id):
             if pane_id not in sessions_by_id or pane_id in restored_ids:
                 raise ValueError("Kitty returned an unexpected pane in its snapshot")
             restored_ids.add(pane_id)
-            screen = sessions_by_id[pane_id]
-            screens[screen] = None
+            name, screen = sessions_by_id[pane_id]
+            screens[name] = None
 
             # Retain the ID Kitty uses to resolve its split tree. Rebuild the
             # command rather than replaying the pane's original program or env.
@@ -47,7 +47,7 @@ def safe_session(lines, sessions_by_id):
                 launch.append(f"--cwd={options.cwd}")
             if options.type in ("overlay", "overlay-main"):
                 launch.append(f"--type={options.type}")
-            line = shlex.join(launch + ssh_args(screen))
+            line = shlex.join(launch + ssh_args(name, screen))
         session.append(line)
 
     if restored_ids != sessions_by_id.keys():
@@ -65,9 +65,9 @@ def snapshot(boss):
             matches = set()
             for process in pane.child.foreground_processes:
                 argv = process.get("cmdline") or ()
-                name = screen_session(argv)
-                if name is not None:
-                    matches.add(name)
+                screen = screen_session(argv)
+                if screen is not None:
+                    matches.add(screen)
                 elif is_interactive_lap_ssh(argv):
                     unmanaged.add(process["pid"])
             if len(matches) > 1:
