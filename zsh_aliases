@@ -3,7 +3,7 @@ alias lc="nvim leetcode.nvim"
 alias c="z "
 alias c-="cd -"
 alias open="xdg-open "
-alias sd="shutdown -h 0"
+alias sdd="shutdown -h 0"
 alias gdb="gdb -q"
 alias clip="xclip -selection clipboard"
 alias ws="wormhole send "
@@ -31,6 +31,27 @@ alias gtc="git log -- "
 alias glf="git log --follow -p "
 alias gco--="git checkout @{-2}"
 alias gco---="git checkout @{-3}"
+
+unalias sd 2>/dev/null
+sd() {
+    if [[ -n $SSH_CONNECTION ]]; then
+        print -u2 -- 'sd: run this from a local shell to save and shut down the desktop.'
+        return 1
+    fi
+    resume save && command shutdown -h 0 "$@"
+}
+
+resume() {
+    /usr/bin/python3 -B "$HOME/.files/kitty/resume.py" "$@"
+}
+
+ssh() {
+    if [[ $# = 1 && $1 = lap && -n $KITTY_WINDOW_ID && -z $SSH_CONNECTION && -t 0 && -t 1 ]]; then
+        /usr/bin/python3 -B "$HOME/.files/kitty/resume_ssh.py"
+    else
+        command ssh "$@"
+    fi
+}
 
 gdif() {
     git diff "$@" | delta --line-numbers

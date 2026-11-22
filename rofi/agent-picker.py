@@ -2,23 +2,26 @@
 """Pick an open Codex terminal using Rofi and live session status."""
 
 import argparse
-import getopt
 import importlib.util
 import json
 import os
 from pathlib import Path
 import re
-import stat
 import subprocess
 import sys
-import tempfile
-import time
 
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("agent_counts", ROOT / "polybar/scripts/agent-counts.py")
 agent_counts = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(agent_counts)
+
+spec = importlib.util.spec_from_file_location("kitty_desktop", ROOT / "kitty/desktop.py")
+desktop = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(desktop)
+desktop_locations = desktop.desktop_locations
+kitty_request = desktop.kitty_request
+terminal_sources = desktop.terminal_sources
 
 
 def clean_text(value):
@@ -28,122 +31,6 @@ def clean_text(value):
 
 def canonical_cwd(value):
     return os.path.realpath(value) if value else None
-
-
-def kitty_parent(pid):
-    for _ in range(12):
-        proc = Path("/proc") / str(pid)
-        try:
-            command = (proc / "cmdline").read_bytes().split(b"\0")
-            if command and Path(os.fsdecode(command[0])).name == "kitty":
-                return pid
-            fields = (proc / "status").read_text().splitlines()
-            pid = int(next(line.split()[1] for line in fields if line.startswith("PPid:")))
-        except (OSError, ValueError, StopIteration):
-            return None
-        if pid <= 1:
-            return None
-    return None
-
-
-def ssh_destination(command):
-    if not command or Path(command[0]).name != "ssh":
-        return None
-    # Accept SSH options that preserve the destination configured for the
-    # alias. An alternate user, port, or configuration needs its own alias.
-    try:
-        _, arguments = getopt.getopt(command[1:], "46AaCc:D:e:i:J:kKL:m:qR:tTXxY")
-    except getopt.GetoptError:
-        return None
-    return arguments[0] if arguments else None
-
-
-def terminal_sources(hosts=()):
-    """Find one usable output stream per running Kitty instance."""
-    sources = {}
-    for proc in Path("/proc").iterdir():
-        if not proc.name.isdigit():
-            continue
-        try:
-            if proc.stat().st_uid != os.getuid():
-                continue
-            command = [os.fsdecode(arg) for arg in (proc / "cmdline").read_bytes().split(b"\0")]
-            if Path(command[0]).name != "codex" and ssh_destination(command) not in hosts:
-                continue
-            terminal = os.readlink(proc / "fd/1")
-            if not re.fullmatch(r"/dev/pts/\d+", terminal):
-                continue
-            # Read only the identifying environment key; never retain secrets.
-            pane_id = next((entry.partition(b"=")[2] for entry in (proc / "environ").read_bytes().split(b"\0")
-                            if entry.startswith(b"KITTY_WINDOW_ID=")), None)
-            if pane_id is None:
-                continue
-            parent = kitty_parent(int(proc.name))
-            if parent is not None:
-                sources.setdefault(parent, {"kitty_pid": parent, "pane_id": int(pane_id), "terminal": terminal})
-        except (OSError, ValueError):
-            continue
-    return sources
-
-
-def kitty_version():
-    version = subprocess.check_output(["kitty", "--version"], text=True, timeout=3)
-    match = re.search(r"\b(\d+)\.(\d+)\.(\d+)\b", version)
-    if match is None:
-        raise RuntimeError("Could not determine the Kitty remote-control version")
-    return [int(part) for part in match.groups()]
-
-
-def kitty_request(source, action, target=None):
-    # This is Kitty's terminal OUTPUT protocol. Never read the terminal or send
-    # a response to the foreground application's input stream.
-    with tempfile.TemporaryDirectory(prefix="codex-agent-picker-") as directory:
-        response_path = Path(directory) / "response.json"
-        arguments = [str(response_path), action]
-        if target is not None:
-            arguments.append(json.dumps(target))
-        command = {
-            "cmd": "kitten", "version": kitty_version(), "no_response": True,
-            "payload": {"kitten": str(ROOT / "kitty/agent_picker.py"),
-                        "args": arguments, "match": f"id:{source['pane_id']}"},
-        }
-        packet = b"\x1bP@kitty-cmd" + json.dumps(command).encode("ascii") + b"\x1b\\"
-        descriptor = os.open(source["terminal"], os.O_WRONLY | os.O_NOCTTY | os.O_NONBLOCK)
-        try:
-            if not stat.S_ISCHR(os.fstat(descriptor).st_mode):
-                raise RuntimeError("Kitty output stream is no longer a terminal")
-            if os.write(descriptor, packet) != len(packet):
-                raise RuntimeError("Could not send the complete Kitty request")
-        finally:
-            os.close(descriptor)
-        deadline = time.monotonic() + 4
-        while time.monotonic() < deadline:
-            try:
-                response = json.loads(response_path.read_text())
-                if "error" in response:
-                    raise RuntimeError(response["error"])
-                return response
-            except FileNotFoundError:
-                time.sleep(0.02)
-        raise RuntimeError("Kitty did not answer the agent picker")
-
-
-def desktop_locations():
-    state = json.loads(subprocess.check_output(["bspc", "wm", "-d"], text=True, timeout=3))
-    locations = {}
-
-    def walk(node, desktop, monitor):
-        if not node:
-            return
-        if node.get("client") is not None:
-            locations[node["id"]] = {"desktop": desktop, "monitor": monitor}
-        walk(node.get("firstChild"), desktop, monitor)
-        walk(node.get("secondChild"), desktop, monitor)
-
-    for monitor in state["monitors"]:
-        for desktop in monitor["desktops"]:
-            walk(desktop.get("root"), desktop["name"], monitor["name"])
-    return locations
 
 
 def title_name(title):
@@ -242,7 +129,7 @@ def build_entries(panes, threads, locations, remote_threads=None):
         if not processes:
             if len(pane["processes"]) == 1:
                 process = pane["processes"][0]
-                host = ssh_destination(process.get("cmdline"))
+                host = process.get("host")
                 if host in remote_panes:
                     remote_panes[host].append((pane, process))
             continue
@@ -269,8 +156,10 @@ def row_label(entry):
                           clean_text(entry["task"]), clean_text(entry["project"])))
 
 
-def pane_inventory(sources):
-    return [pane for source in sources.values() for pane in kitty_request(source, "inventory")["panes"]]
+def pane_inventory(sources, hosts):
+    hosts = list(hosts)
+    return [pane for source in sources.values()
+            for pane in kitty_request(source, "inventory", hosts)["panes"]]
 
 
 def collect_entries():
@@ -281,7 +170,7 @@ def collect_entries():
         sources.close()
     threads = snapshots.get(None) or []
     remote_threads = {host: threads for host, threads in snapshots.items() if host is not None}
-    panes = pane_inventory(terminal_sources(remote_threads))
+    panes = pane_inventory(terminal_sources(remote_threads), remote_threads)
     return build_entries(panes, threads, desktop_locations() if panes else {}, remote_threads)
 
 
@@ -291,7 +180,7 @@ def notify_ready(ready, threads):
     if not remote_threads:
         return
     sources = terminal_sources(remote_threads)
-    panes = pane_inventory(sources)
+    panes = pane_inventory(sources, remote_threads)
     if not panes:
         return
     entries = build_entries(panes, [], desktop_locations(), remote_threads)

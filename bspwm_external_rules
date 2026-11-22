@@ -1,6 +1,17 @@
 #!/bin/sh
 
 class="$2"
+instance="$3"
+
+case "$instance" in
+    lap-resume-*-0x*)
+        desktop=${instance##*-}
+        case "${desktop#0x}" in
+            ''|*[!0123456789abcdef]*) ;;
+            *) echo "desktop=$desktop follow=off focus=off" ;;
+        esac
+        ;;
+esac
 
 case "$class" in
     unnamed_strat_game*|game-development-api*)

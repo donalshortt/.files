@@ -7,8 +7,10 @@ import json
 import os
 from pathlib import Path
 import re
-import tempfile
+from runpy import run_path
+import socket
 
+from desktop import ssh_destination
 from kittens.tui.handler import result_handler
 from kitty.fast_data_types import current_focused_os_window_id, request_attention
 from kitty.utils import platform_window_id
@@ -20,18 +22,25 @@ def main(args):
 
 def terminal_processes(window, commands):
     return [
-        {"pid": process["pid"], "cmdline": list(process.get("cmdline") or [])}
-        for process in window.child.foreground_processes
+        process for process in window.child.foreground_processes
         if os.path.basename((process.get("cmdline") or [""])[0]) in commands
     ]
 
 
-def inventory(boss):
+def inventory(boss, hosts):
     panes = []
     for window in boss.all_windows:
         if window.destroyed:
             continue
-        processes = terminal_processes(window, {"codex", "ssh"})
+        processes = []
+        for process in terminal_processes(window, {"codex", "ssh"}):
+            argv = process["cmdline"]
+            if os.path.basename(argv[0]) == "ssh":
+                destination = ssh_destination(argv)
+                # Only configured aliases may cross the inventory boundary.
+                processes.append({"pid": process["pid"], "host": destination if destination in hosts else None})
+            else:
+                processes.append({"pid": process["pid"], "cmdline": list(argv)})
         if not processes:
             continue
         x11_id = platform_window_id(window.os_window_id)
@@ -91,29 +100,17 @@ def attention(boss, targets):
     return {"ok": True}
 
 
-def write_response(path, response):
-    destination = Path(path)
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="w", dir=destination.parent, prefix=".agent-picker-", delete=False
-        ) as output:
-            temporary = Path(output.name)
-            json.dump(response, output)
-        os.replace(temporary, destination)
-        temporary = None
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
-
-
 @result_handler(no_ui=True)
 def handle_result(args, result, target_window_id, boss):
     if len(args) < 3:
         return False
     try:
         if args[2] == "inventory":
-            response = inventory(boss)
+            hosts = json.loads(args[3]) if len(args) > 3 else ()
+            response = inventory(boss, hosts)
+        elif args[2] == "resume_snapshot":
+            snapshot = run_path(str(Path(args[0]).with_name("resume_snapshot.py")))["snapshot"]
+            response = snapshot(boss)
         elif args[2] == "focus":
             response = focus_pane(boss, json.loads(args[3]))
         elif args[2] == "attention":
@@ -122,5 +119,8 @@ def handle_result(args, result, target_window_id, boss):
             raise ValueError("Unknown agent picker action")
     except Exception as error:
         response = {"error": str(error)}
-    write_response(args[1], response)
+    with socket.socket(socket.AF_UNIX) as reply:
+        reply.settimeout(4)
+        reply.connect(args[1])
+        reply.sendall(json.dumps(response).encode("utf-8"))
     return "error" not in response
