@@ -104,9 +104,15 @@ super + ctrl + {m,x,y,z}
 # focus/swap
 #
 
-# focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+# focus in the given direction, wrapping at the outer monitor edge
+super + {h,j,k,l}
+	direction={west,south,north,east}; \
+	bspc node -f "$direction.local" || \
+	/usr/bin/python3 -B "$HOME/.files/bspwm_focus_wrap.py" "$direction"
+
+# swap the node in the given direction
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
