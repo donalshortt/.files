@@ -110,7 +110,7 @@ def handle_result(args, result, target_window_id, boss):
             response = inventory(boss, hosts)
         elif args[2] == "resume_snapshot":
             snapshot = run_path(str(Path(args[0]).with_name("resume_snapshot.py")))["snapshot"]
-            response = snapshot(boss)
+            response = snapshot(boss, json.loads(args[3]) if len(args) > 3 else {})
         elif args[2] == "focus":
             response = focus_pane(boss, json.loads(args[3]))
         elif args[2] == "attention":

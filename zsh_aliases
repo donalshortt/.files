@@ -38,7 +38,12 @@ sd() {
         print -u2 -- 'sd: run this from a local shell to save and shut down the desktop.'
         return 1
     fi
-    resume save && command shutdown -h 0 "$@"
+    local -a save_options
+    if [[ ${1-} = --force ]]; then
+        save_options+=(--force)
+        shift
+    fi
+    resume save "${save_options[@]}" && command shutdown -h 0 "$@"
 }
 
 resume() {

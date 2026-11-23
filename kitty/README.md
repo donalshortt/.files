@@ -36,3 +36,24 @@ python3 -B -m unittest discover -s polybar/tests
 
 The test uses a fake bspwm socket and Polybar's stdout mode. It queries the
 existing display's monitors but creates no windows and changes no desktop state.
+
+Saving terminals before shutdown
+================================
+
+`sd` saves Kitty windows on their bspwm desktops, including tabs, splits, working
+directories, and terminal output. Run `resume` after signing back in to reopen
+the saved layout. The snapshot lives in `${XDG_STATE_HOME:-~/.local/state}/kitty-resume/`
+and is readable only by your user.
+
+Interactive `ssh lap` logins started from Kitty use GNU Screen on `lap`. Their
+remote shells and jobs continue while this machine is off. Running `tt` on
+`lap` opens a managed Screen session in a new Kitty tab at the current remote
+directory. Older plain `lap` logins reopened by `resume` get new Screen sessions.
+When the saved login includes a remote working directory, the new session
+starts there.
+
+If a plain SSH login is open, `sd` saves the layout and output, prints the
+affected desktops, and stops before shutdown. `sd --force` shuts down after
+saving that context. Local jobs can exit during shutdown. Their panes reopen
+with a shell in the saved working directory and the saved terminal output.
+Run `source ~/.zsh_aliases` in an existing shell to load the new option.

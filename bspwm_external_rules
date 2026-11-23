@@ -4,7 +4,7 @@ class="$2"
 instance="$3"
 
 case "$instance" in
-    lap-resume-*-0x*)
+    kitty-resume-*-0x*|lap-resume-*-0x*)
         desktop=${instance##*-}
         case "${desktop#0x}" in
             ''|*[!0123456789abcdef]*) ;;

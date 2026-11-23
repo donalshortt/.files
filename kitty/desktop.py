@@ -45,6 +45,7 @@ def ssh_destination(command):
 def terminal_sources(hosts=(), *, include_all=False):
     """Find one output stream per Kitty instance with a matching process."""
     sources = {}
+    descriptors = (1, 0, 2) if include_all else (1,)
     for proc in Path("/proc").iterdir():
         if not proc.name.isdigit():
             continue
@@ -55,8 +56,14 @@ def terminal_sources(hosts=(), *, include_all=False):
                 command = [os.fsdecode(arg) for arg in (proc / "cmdline").read_bytes().split(b"\0")]
                 if Path(command[0]).name != "codex" and ssh_destination(command) not in hosts:
                     continue
-            terminal = os.readlink(proc / "fd/1")
-            if not re.fullmatch(r"/dev/pts/\d+", terminal):
+            for fd in descriptors:
+                try:
+                    terminal = os.readlink(proc / "fd" / str(fd))
+                except OSError:
+                    continue
+                if re.fullmatch(r"/dev/pts/\d+", terminal):
+                    break
+            else:
                 continue
             # Read only the identifying environment key; never retain secrets.
             pane_id = next((entry.partition(b"=")[2] for entry in (proc / "environ").read_bytes().split(b"\0")
@@ -129,7 +136,11 @@ def desktop_locations(*, include_details=False):
         if client is not None:
             location = {"desktop": desktop["name"], "monitor": monitor}
             if include_details:
-                location.update(instance=client.get("instanceName", ""), desktop_id=desktop["id"])
+                location.update(
+                    instance=client.get("instanceName", ""),
+                    class_name=client.get("className", ""),
+                    desktop_id=desktop["id"],
+                )
             locations[node["id"]] = location
         walk(node.get("firstChild"), desktop, monitor)
         walk(node.get("secondChild"), desktop, monitor)
