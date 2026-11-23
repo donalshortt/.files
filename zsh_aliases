@@ -60,6 +60,11 @@ gdif() {
 unalias gwtrm 2>/dev/null
 gwtrm() {
     emulate -L zsh
+    if (( $# == 0 )); then
+        wtr
+        return
+    fi
+
     local range_pattern='^([0-9]+)-([0-9]+)$'
     local issue_pattern='_([0-9]+)-'
     local MATCH MBEGIN MEND
@@ -133,7 +138,7 @@ wta() {
 	cd "../unnamed_$1"
 }
 
-# Return to the main checkout and remove the linked worktree we came from.
+# Remove the current linked worktree and return to the main checkout.
 wtr() {
     emulate -L zsh
     if (( $# != 0 )); then
@@ -149,10 +154,10 @@ wtr() {
     main_worktree=${entries[1]#worktree }
 
     if [[ ${worktree:A} == ${main_worktree:A} ]]; then
-        print -u2 -- 'wtr: already in the main checkout; nothing to remove.'
+        print -u2 -- 'Already in the main checkout. Nothing to remove.'
         return 1
     fi
 
-    cd -- "$main_worktree" &&
-        git worktree remove -- "$worktree"
+    git -C "$main_worktree" worktree remove -- "$worktree" &&
+        cd -- "$main_worktree"
 }
