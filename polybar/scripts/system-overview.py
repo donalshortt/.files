@@ -2,10 +2,15 @@
 import argparse
 import ctypes
 import json
+import shlex
 import subprocess
-from contextlib import contextmanager
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager, nullcontext
+from pathlib import Path
 
 import gi
+
+from lap_usage import parse_meminfo, read_lap
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
@@ -87,6 +92,22 @@ def observe_button_presses(on_press):
         x11.XCloseDisplay(display)
 
 
+@contextmanager
+def background_rows(read_rows):
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        pending = None
+
+        def poll():
+            nonlocal pending
+            if pending is not None and not pending.done():
+                return None
+            finished = pending
+            pending = executor.submit(read_rows)
+            return finished.result() if finished is not None else None
+
+        yield poll
+
+
 def show_popup(heading, rows, pointer, monitor, click_x, refresh_rows=None):
     window = Gtk.Window(type=Gtk.WindowType.POPUP, title="System overview")
     window.set_accept_focus(False)
@@ -132,10 +153,11 @@ def show_popup(heading, rows, pointer, monitor, click_x, refresh_rows=None):
 
     def update_rows():
         try:
-            text = "\n".join(refresh_rows())
-        except (OSError, ValueError):
-            text = "Usage data is unavailable"
-        body.set_text(text)
+            updated = refresh_rows()
+            if updated is not None:
+                body.set_text("\n".join(updated))
+        except (OSError, ValueError, subprocess.SubprocessError):
+            body.set_text("Usage data is unavailable")
         return GLib.SOURCE_CONTINUE
 
     with observe_button_presses(dismiss_if_outside):
@@ -157,14 +179,16 @@ def format_disk_size(size):
         size /= 1024
 
 
-def disk_overview():
-    result = subprocess.run(
-        ["lsblk", "--bytes", "--json", "--list", "--exclude", "7", "--output",
-         "NAME,TYPE,SIZE,FSSIZE,FSUSED,FSAVAIL,MOUNTPOINT"],
-        capture_output=True, text=True, check=True, timeout=5,
-    )
+def disk_overview(lap=False):
+    command = ["lsblk", "--bytes", "--json", "--list", "--exclude", "7", "--output",
+               "NAME,TYPE,SIZE,FSSIZE,FSUSED,FSAVAIL,MOUNTPOINT"]
+    if lap:
+        output = read_lap(f"exec {shlex.join(command)}\n")
+    else:
+        output = subprocess.run(command, capture_output=True, text=True, check=True, timeout=5).stdout
+
     volumes = [("Device", "Size", "Used", "Used %", "Free", "Mount / status")]
-    for device in json.loads(result.stdout)["blockdevices"]:
+    for device in json.loads(output)["blockdevices"]:
         mount = device["mountpoint"]
         if mount:
             status = "".join(char if char.isprintable() else " " for char in mount)
@@ -187,27 +211,54 @@ def disk_overview():
         f"{percent:>{percent_width}}  {free:>{free_width}}  {status}"
         for name, size, used, percent, free, status in volumes
     ]
-    return f"<b>Disk space</b>\n\n{header}", rows or ["No disks found"]
+    return header, rows or ["No disks found"]
 
 
-def cpu_times():
+def memory_overview(lap=False):
+    if lap:
+        contents = read_lap("exec cat /proc/meminfo\n")
+    else:
+        contents = Path("/proc/meminfo").read_text(encoding="ascii")
+
+    memory_kib = parse_meminfo(contents)
+    rows = [f"{'':<5}  {'Used':>10}  {'Available':>10}  {'Total':>10}"]
+    for label, total, available in [
+        ("RAM", memory_kib["MemTotal"], memory_kib["MemAvailable"]),
+        ("Swap", memory_kib["SwapTotal"], memory_kib["SwapFree"]),
+    ]:
+        used_gib = (total - available) / 1024**2
+        available_gib = available / 1024**2
+        total_gib = total / 1024**2
+        rows.append(f"{label:<5}  {used_gib:>6.2f} GiB  {available_gib:>6.2f} GiB  {total_gib:>6.2f} GiB")
+    return rows
+
+
+def cpu_times(lap=False):
+    if lap:
+        stats = read_lap("exec grep '^cpu' /proc/stat\n")
+    else:
+        stats = Path("/proc/stat").read_text(encoding="ascii")
+
     samples = {}
-    with open("/proc/stat", encoding="ascii") as stats:
-        for line in stats:
-            name, *fields = line.split()
-            if not name.startswith("cpu"):
-                break
-            times = [int(field) for field in fields[:8]]
-            samples[name] = (sum(times), times[3] + times[4])
+    for line in stats.splitlines():
+        if not line.startswith("cpu"):
+            break
+        name, *fields = line.split()
+        if len(fields) < 8:
+            raise ValueError("Missing CPU counters")
+        times = [int(field) for field in fields[:8]]
+        samples[name] = (sum(times), times[3] + times[4])
+    if "cpu" not in samples:
+        raise ValueError("Missing aggregate CPU counters")
     return samples
 
 
-def cpu_sampler():
+def cpu_sampler(lap=False):
     previous = {}
 
     def sample():
         nonlocal previous
-        current = cpu_times()
+        current = cpu_times(lap)
         rows = []
         for name, (total, idle) in current.items():
             label = "Total" if name == "cpu" else f"CPU {name[3:]}"
@@ -231,23 +282,32 @@ def cpu_sampler():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("stat", choices=("disk", "cpu"))
-    stat = parser.parse_args().stat
+    parser.add_argument("stat", choices=("disk", "cpu", "memory"))
+    parser.add_argument("--lap", action="store_true", help="Show details from lap")
+    args = parser.parse_args()
+
     display = Gdk.Display.get_default()
     pointer = display.get_default_seat().get_pointer()
     _, click_x, click_y = pointer.get_position()
     monitor = display.get_monitor_at_point(click_x, click_y).get_geometry()
+    title = {"cpu": "CPU usage", "disk": "Disk space", "memory": "RAM usage"}[args.stat]
+    heading = f"<b>{'lap · ' if args.lap else ''}{title}</b>"
     refresh_rows = None
     try:
-        if stat == "cpu":
-            refresh_rows = cpu_sampler()
-            heading, rows = "<b>CPU usage</b>", refresh_rows()
+        if args.stat == "cpu":
+            sample = cpu_sampler(args.lap)
+            rows = sample()
+            refresh_rows = sample
+        elif args.stat == "disk":
+            header, rows = disk_overview(args.lap)
+            heading += f"\n\n{header}"
         else:
-            heading, rows = disk_overview()
-    except (OSError, ValueError, subprocess.SubprocessError):
-        heading = f"<b>{stat.upper() if stat == 'cpu' else 'Disk'}</b>"
+            rows = memory_overview(args.lap)
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError):
         rows = ["Usage data is unavailable"]
-    show_popup(heading, rows, pointer, monitor, click_x, refresh_rows)
+    refresh = background_rows(refresh_rows) if args.lap and refresh_rows else nullcontext(refresh_rows)
+    with refresh as poll_rows:
+        show_popup(heading, rows, pointer, monitor, click_x, poll_rows)
 
 
 if __name__ == "__main__":
