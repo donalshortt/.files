@@ -52,6 +52,13 @@ directory. Older plain `lap` logins reopened by `resume` get new Screen sessions
 When the saved login includes a remote working directory, the new session
 starts there.
 
+If `lap` powers off, its running Screen sessions end. A new save records the
+remote working directory and the exact saved Codex conversation when it can
+identify one. `resume` reattaches surviving Screen sessions and uses those
+checkpoints to reopen conversations in replacement sessions. Older snapshots
+and programs without a supported checkpoint reopen as shells with saved
+terminal output.
+
 If a plain SSH login is open, `sd` saves the layout and output, prints the
 affected desktops, and stops before shutdown. `sd --force` shuts down after
 saving that context. Local jobs can exit during shutdown. Their panes reopen

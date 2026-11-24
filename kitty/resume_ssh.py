@@ -8,6 +8,7 @@ from uuid import uuid4
 
 
 SESSION_NAME = re.compile(r"resume-[0-9a-f]{32}")
+CODEX_THREAD_ID = re.compile(r"[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}", re.IGNORECASE)
 SSH_DESTINATION = re.compile(r"[\w.][\w.:-]*(?:@[\w.][\w.:-]*)?", re.ASCII)
 SSH_OPTIONS = "46AaCfGgKkMNnqsTtVvXxYyZB:b:c:D:E:e:F:I:i:J:L:l:m:O:o:P:p:Q:R:S:W:w:"
 SSH_LAP = ("ssh", "-t", "lap")
@@ -21,18 +22,28 @@ TT_OPTIONS = (
 SCREEN4 = "screen"
 SCREEN5 = "~/.local/bin/screen5"
 ATTACH = ("-d", "-R", "-S")
+CODEX_START = "codex resume "
+LOGIN_SHELL = '; exec "${SHELL:-/bin/sh}" -l'
 
 
 def usable_cwd(cwd):
     return cwd.startswith("/") and "\0" not in cwd and cwd.splitlines() == [cwd]
 
 
-def ssh_args(session, screen=SCREEN5, cwd=""):
+def ssh_args(session, screen=SCREEN5, cwd="", *, codex=None):
     if SESSION_NAME.fullmatch(session) is None:
         raise ValueError("Invalid Screen session name")
     command = [screen, "-q", *ATTACH, session]
+    if codex is not None:
+        if CODEX_THREAD_ID.fullmatch(codex) is None:
+            raise ValueError("Invalid Codex conversation ID")
+        command.extend(("/bin/sh", "-c", CODEX_START + codex + LOGIN_SHELL))
+    # Leave Screen's optional ~/ prefix for the remote shell to expand.
+    attach = f"exec {screen} {shlex.join(command[1:])}"
     if usable_cwd(cwd):
-        return [*SSH_LAP, f'cd -- {shlex.quote(cwd)} || cd; exec {" ".join(command)}']
+        return [*SSH_LAP, f"cd -- {shlex.quote(cwd)} || cd; {attach}"]
+    if codex is not None:
+        return [*SSH_LAP, attach]
     return [*SSH_LAP, *command]
 
 
@@ -43,15 +54,25 @@ def screen_session(argv):
     host, options, command = login
     if host != "lap" or tuple(options) not in ((TTY_OPTION,), TT_OPTIONS):
         return None
-    if len(command) == 1 and command[0].startswith("cd -- "):
-        directory, separator, attach = command[0][len("cd -- "):].rpartition(" || cd; exec ")
+    if len(command) == 1:
+        attach = command[0]
         try:
-            words = shlex.split(directory) if separator else []
+            if attach.startswith("cd -- "):
+                directory, separator, rest = attach[len("cd -- "):].rpartition(" || cd; exec ")
+                words = shlex.split(directory) if separator else []
+                if len(words) != 1 or not words[0].startswith("/") or shlex.quote(words[0]) != directory:
+                    return None
+                attach = "exec " + rest
+            if not attach.startswith("exec "):
+                return None
+            command = shlex.split(attach[len("exec "):])
         except ValueError:
             return None
-        if len(words) != 1 or not words[0].startswith("/") or shlex.quote(words[0]) != directory:
-            return None
-        command = attach.split()
+    if tuple(command[-3:-1]) == ("/bin/sh", "-c"):
+        startup = command[-1]
+        thread = startup.removeprefix(CODEX_START).removesuffix(LOGIN_SHELL)
+        if CODEX_THREAD_ID.fullmatch(thread) and startup == CODEX_START + thread + LOGIN_SHELL:
+            command = command[:-3]
     if not command or SESSION_NAME.fullmatch(command[-1]) is None:
         return None
     prefix = tuple(command[:-1])
@@ -61,8 +82,9 @@ def screen_session(argv):
     return None
 
 
-def quiet_saved_session(session):
-    """Upgrade launch commands written before quiet mode was enabled."""
+def prepare_saved_session(session, checkpoints=None):
+    """Update saved SSH launches for the Screen sessions being restored."""
+    checkpoints = checkpoints or {}
     legacy_suffix = " " + " ".join((*SSH_LAP, SCREEN4, *ATTACH)) + " "
     lines = []
     for line in session.strip().splitlines():
@@ -70,6 +92,15 @@ def quiet_saved_session(session):
             launch, separator, name = line.rpartition(legacy_suffix)
             if separator and SESSION_NAME.fullmatch(name):
                 line = f"{launch} {' '.join(ssh_args(name, SCREEN4))}"
+            if checkpoints:
+                argv = shlex.split(line)
+                # The generated launch options always precede the SSH argv.
+                start = next((index for index, word in enumerate(argv) if word == "ssh"), len(argv))
+                managed = screen_session(argv[start:])
+                if managed and managed[0] in checkpoints:
+                    checkpoint = checkpoints[managed[0]]
+                    args = ssh_args(*managed, cwd=checkpoint.get("cwd", ""), codex=checkpoint.get("codex"))
+                    line = shlex.join(argv[:start] + args)
         lines.append(line)
     return "\n".join(lines)
 

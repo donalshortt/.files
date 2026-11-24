@@ -7,13 +7,17 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
 import time
 
 from desktop import desktop_locations, kitty_request, terminal_sources
-from resume_ssh import quiet_saved_session
+from resume_ssh import prepare_saved_session
+
+
+PROBE = Path(__file__).resolve().with_name("resume_remote_probe.py")
 
 
 def kitty_snapshots(*, capture=True):
@@ -45,10 +49,21 @@ def save(path, *, force=False):
                 "desktop": locations[window["x11_id"]]["desktop"],
             })
 
+    screens = {name for window in windows for name in window["screens"]}
+    inventory = {}
+    if screens:
+        try:
+            inventory = lap_inventory(screens)
+        except RuntimeError as error:
+            print(f"resume: {error} Saved the layout without a remote work checkpoint.", file=sys.stderr)
+    checkpoints = inventory.get("screens", {})
+    for window in windows:
+        window["checkpoints"] = {name: checkpoints[name] for name in window["screens"] if name in checkpoints}
+
     with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, delete=False) as output:
         temporary = Path(output.name)
         try:
-            json.dump({"saved_at": time.time(), "windows": windows}, output)
+            json.dump({"saved_at": time.time(), "lap_boot_id": inventory.get("boot_id"), "windows": windows}, output)
             output.flush()
             os.fsync(output.fileno())
             os.replace(temporary, path)
@@ -61,6 +76,9 @@ def save(path, *, force=False):
             temporary.unlink(missing_ok=True)
     panes = sum(len(window["scrollback"]) for window in windows)
     print(f"Saved {panes} Kitty pane(s) in {len(windows)} window(s), including terminal output.", flush=True)
+    conversations = sum(bool(checkpoint.get("codex")) for checkpoint in checkpoints.values())
+    if conversations:
+        print(f"Saved {conversations} Codex conversation checkpoint(s) from lap.", flush=True)
 
     work = {}
     for window in windows:
@@ -76,15 +94,55 @@ def save(path, *, force=False):
         print(f"resume: {message}", file=sys.stderr, flush=True)
 
 
-def check_lap():
+def lap_inventory(screens, *, list_only=False):
+    arguments = ["python3", "-B", "-"]
+    if list_only:
+        arguments.append("--list")
+    arguments.extend(sorted(screens))
     try:
-        subprocess.run(
-            ["ssh", "-nT", "-o", "BatchMode=yes", "-o", "ConnectTimeout=5",
-             "lap", 'command -v screen >/dev/null || test -x "$HOME/.local/bin/screen5"'],
-            check=True, timeout=10,
+        result = subprocess.run(
+            ["ssh", "-T", "-o", "BatchMode=yes", "-o", "ConnectTimeout=5", "lap", shlex.join(arguments)],
+            input=PROBE.read_text(), capture_output=True, text=True, check=True, timeout=10,
         )
-    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
-        raise RuntimeError("Could not reach GNU Screen on lap. Try resume again once lap is ready.") from error
+        data = json.loads(result.stdout)
+        if not isinstance(data, dict) or not isinstance(data.get("screens"), dict):
+            raise ValueError("Invalid Screen inventory")
+        return data
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        raise RuntimeError("Could not read GNU Screen sessions on lap.") from error
+
+
+def prepare_remote_recovery(pending, saved_boot_id):
+    screens = {name for window in pending.values() for name in window["screens"]}
+    if not screens:
+        return
+    inventory = lap_inventory(screens, list_only=True)
+    missing = screens - inventory["screens"].keys()
+    if not missing:
+        return
+    recovering = set()
+    unidentified = set()
+    for window in pending.values():
+        checkpoints = window.get("checkpoints", {})
+        cold_start = {}
+        for name in missing.intersection(window["screens"]):
+            if name not in checkpoints:
+                unidentified.add(name)
+                continue
+            checkpoint = checkpoints[name]
+            cold_start[name] = checkpoint
+            if checkpoint.get("codex"):
+                recovering.add(name)
+            elif checkpoint.get("program"):
+                unidentified.add(name)
+        window["cold_start"] = cold_start
+    if saved_boot_id and inventory.get("boot_id") != saved_boot_id:
+        print("lap rebooted since the snapshot was saved.", flush=True)
+    print(f"{len(missing)} saved Screen session(s) ended on lap. Opening replacements.", flush=True)
+    if recovering:
+        print(f"Reopening {len(recovering)} saved Codex conversation(s).", flush=True)
+    if unidentified:
+        print(f"{len(unidentified)} lost Screen session(s) have no supported work checkpoint. Opening shells.", flush=True)
 
 
 def desktop_id(name):
@@ -100,7 +158,7 @@ def desktop_id(name):
 
 def session_text(windows):
     return "\nnew_os_window\n".join(
-        f"os_window_name {instance}\n{quiet_saved_session(window['session'])}\n"
+        f"os_window_name {instance}\n{prepare_saved_session(window['session'], window.get('cold_start'))}\n"
         for instance, window in windows.items()
     )
 
@@ -176,13 +234,12 @@ def restore(path):
                 "Close the duplicate connection before retrying."
             )
         instance = f"{tag}-{desktop_id(window['desktop'])}"
-        pending[instance] = window
+        pending[instance] = dict(window)
 
     if not pending:
         print("The saved Kitty windows are already open.")
         return
-    if any(window["screens"] for window in pending.values()):
-        check_lap()
+    prepare_remote_recovery(pending, None if legacy else data.get("lap_boot_id"))
 
     with tempfile.TemporaryDirectory(prefix="restore-", dir=path.parent) as directory:
         if legacy:
